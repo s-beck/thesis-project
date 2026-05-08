@@ -1,0 +1,161 @@
+product_id,product_title,category,review_text,rating,sentiment
+2180003,Casual Cotton T-Shirt,Fashion,Well worth the price!,5,POSITIVE
+2180003,Casual Cotton T-Shirt,Fashion,Exactly what I needed!,5,POSITIVE
+2180003,Casual Cotton T-Shirt,Fashion,Exactly what I needed!,5,POSITIVE
+2180003,Casual Cotton T-Shirt,Fashion,"Could be better, but acceptable.",3,NEUTRAL
+2180003,Casual Cotton T-Shirt,Fashion,Poor quality and broke quickly.,2,NEGATIVE
+2402283,Wireless Bluetooth Earbuds,Electronics,Fast shipping and great packaging.,5,POSITIVE
+2402283,Wireless Bluetooth Earbuds,Electronics,Fast shipping and great packaging.,5,POSITIVE
+2402283,Wireless Bluetooth Earbuds,Electronics,Great product! Works perfectly.,5,POSITIVE
+2402283,Wireless Bluetooth Earbuds,Electronics,"Could be better, but acceptable.",3,NEUTRAL
+2402283,Wireless Bluetooth Earbuds,Electronics,"Does the job, but not impressed.",2,NEGATIVE
+260609,Resistance Exercise Bands,Sports & Outdoors,Fast shipping and great packaging.,4,POSITIVE
+260609,Resistance Exercise Bands,Sports & Outdoors,I'm very satisfied with this purchase.,4,POSITIVE
+260609,Resistance Exercise Bands,Sports & Outdoors,Highly recommend. Excellent quality.,5,POSITIVE
+260609,Resistance Exercise Bands,Sports & Outdoors,"Not bad, but has some issues.",3,NEUTRAL
+260609,Resistance Exercise Bands,Sports & Outdoors,Very disappointed with this item.,2,NEGATIVE
+2738409,Winter Wool Scarf,Fashion,Exactly what I needed!,5,POSITIVE
+2738409,Winter Wool Scarf,Fashion,"Does the job, but not impressed.",4,POSITIVE
+2738409,Winter Wool Scarf,Fashion,"It's okay, nothing special.",4,POSITIVE
+2738409,Winter Wool Scarf,Fashion,Decent value for the money.,3,NEUTRAL
+2738409,Winter Wool Scarf,Fashion,"Terrible experience, do not buy.",1,NEGATIVE
+2765144,Ceramic Coffee Mug,Home & Kitchen,I'm very satisfied with this purchase.,4,POSITIVE
+2765144,Ceramic Coffee Mug,Home & Kitchen,Great product! Works perfectly.,4,POSITIVE
+2765144,Ceramic Coffee Mug,Home & Kitchen,Fast shipping and great packaging.,4,POSITIVE
+2765144,Ceramic Coffee Mug,Home & Kitchen,"It's okay, nothing special.",3,NEUTRAL
+2765144,Ceramic Coffee Mug,Home & Kitchen,"Terrible experience, do not buy.",2,NEGATIVE
+3523465,Yoga Mat,Sports & Outdoors,Highly recommend. Excellent quality.,5,POSITIVE
+3523465,Yoga Mat,Sports & Outdoors,Highly recommend. Excellent quality.,4,POSITIVE
+3523465,Yoga Mat,Sports & Outdoors,I'm very satisfied with this purchase.,5,POSITIVE
+3523465,Yoga Mat,Sports & Outdoors,"Works, but not as described.",3,NEUTRAL
+3523465,Yoga Mat,Sports & Outdoors,Worst purchase I've made.,2,NEGATIVE
+3628113,Hiking Backpack,Sports & Outdoors,Great product! Works perfectly.,5,POSITIVE
+3628113,Hiking Backpack,Sports & Outdoors,I'm very satisfied with this purchase.,5,POSITIVE
+3628113,Hiking Backpack,Sports & Outdoors,I'm very satisfied with this purchase.,4,POSITIVE
+3628113,Hiking Backpack,Sports & Outdoors,"Could be better, but acceptable.",3,NEUTRAL
+3628113,Hiking Backpack,Sports & Outdoors,Very disappointed with this item.,2,NEGATIVE
+3786675,Anti-Aging Night Cream,Beauty,Fast shipping and great packaging.,5,POSITIVE
+3786675,Anti-Aging Night Cream,Beauty,Great product! Works perfectly.,5,POSITIVE
+3786675,Anti-Aging Night Cream,Beauty,"Average product, nothing stands out.",4,POSITIVE
+3786675,Anti-Aging Night Cream,Beauty,"Could be better, but acceptable.",3,NEUTRAL
+3786675,Anti-Aging Night Cream,Beauty,Packaging was damaged and product didn't function.,1,NEGATIVE
+3900407,Portable Power Bank,Electronics,Great product! Works perfectly.,4,POSITIVE
+3900407,Portable Power Bank,Electronics,I'm very satisfied with this purchase.,5,POSITIVE
+3900407,Portable Power Bank,Electronics,Exactly what I needed!,5,POSITIVE
+3900407,Portable Power Bank,Electronics,"Does the job, but not impressed.",3,NEUTRAL
+3900407,Portable Power Bank,Electronics,Would not recommend to anyone.,2,NEGATIVE
+4257420,Multivitamin Pack,Health & Personal Care,Exactly what I needed!,5,POSITIVE
+4257420,Multivitamin Pack,Health & Personal Care,Exactly what I needed!,5,POSITIVE
+4257420,Multivitamin Pack,Health & Personal Care,Fast shipping and great packaging.,4,POSITIVE
+4257420,Multivitamin Pack,Health & Personal Care,Decent value for the money.,3,NEUTRAL
+4257420,Multivitamin Pack,Health & Personal Care,Did not work as expected.,1,NEGATIVE
+4442583,Hydrating Facial Serum,Beauty,"Does the job, but not impressed.",4,POSITIVE
+4442583,Hydrating Facial Serum,Beauty,Well worth the price!,5,POSITIVE
+4442583,Hydrating Facial Serum,Beauty,"Does the job, but not impressed.",4,POSITIVE
+4442583,Hydrating Facial Serum,Beauty,"Could be better, but acceptable.",3,NEUTRAL
+4442583,Hydrating Facial Serum,Beauty,Very disappointed with this item.,2,NEGATIVE
+4515506,Wooden Puzzle Set,Toys & Games,"It's okay, nothing special.",4,POSITIVE
+4515506,Wooden Puzzle Set,Toys & Games,Fast shipping and great packaging.,5,POSITIVE
+4515506,Wooden Puzzle Set,Toys & Games,"Average product, nothing stands out.",4,POSITIVE
+4515506,Wooden Puzzle Set,Toys & Games,"Not bad, but has some issues.",3,NEUTRAL
+4515506,Wooden Puzzle Set,Toys & Games,"Terrible experience, do not buy.",2,NEGATIVE
+4589130,Stainless Steel Blender,Home & Kitchen,Fast shipping and great packaging.,5,POSITIVE
+4589130,Stainless Steel Blender,Home & Kitchen,"It's okay, nothing special.",4,POSITIVE
+4589130,Stainless Steel Blender,Home & Kitchen,Highly recommend. Excellent quality.,4,POSITIVE
+4589130,Stainless Steel Blender,Home & Kitchen,"Could be better, but acceptable.",3,NEUTRAL
+4589130,Stainless Steel Blender,Home & Kitchen,"Terrible experience, do not buy.",2,NEGATIVE
+4657153,Remote Control Car,Toys & Games,I'm very satisfied with this purchase.,4,POSITIVE
+4657153,Remote Control Car,Toys & Games,Exactly what I needed!,5,POSITIVE
+4657153,Remote Control Car,Toys & Games,Fast shipping and great packaging.,4,POSITIVE
+4657153,Remote Control Car,Toys & Games,"Average product, nothing stands out.",3,NEUTRAL
+4657153,Remote Control Car,Toys & Games,Very disappointed with this item.,1,NEGATIVE
+4716121,Long-Wear Matte Lipstick,Beauty,Highly recommend. Excellent quality.,5,POSITIVE
+4716121,Long-Wear Matte Lipstick,Beauty,Easy to use and durable.,5,POSITIVE
+4716121,Long-Wear Matte Lipstick,Beauty,Easy to use and durable.,5,POSITIVE
+4716121,Long-Wear Matte Lipstick,Beauty,"Average product, nothing stands out.",3,NEUTRAL
+4716121,Long-Wear Matte Lipstick,Beauty,"Terrible experience, do not buy.",1,NEGATIVE
+4795734,Children's Picture Book,Books,"It's okay, nothing special.",4,POSITIVE
+4795734,Children's Picture Book,Books,I'm very satisfied with this purchase.,5,POSITIVE
+4795734,Children's Picture Book,Books,"Does the job, but not impressed.",4,POSITIVE
+4795734,Children's Picture Book,Books,Decent value for the money.,3,NEUTRAL
+4795734,Children's Picture Book,Books,Did not work as expected.,1,NEGATIVE
+5237618,LED Desk Lamp,Home & Kitchen,Exactly what I needed!,5,POSITIVE
+5237618,LED Desk Lamp,Home & Kitchen,Highly recommend. Excellent quality.,5,POSITIVE
+5237618,LED Desk Lamp,Home & Kitchen,Great product! Works perfectly.,5,POSITIVE
+5237618,LED Desk Lamp,Home & Kitchen,"Works, but not as described.",3,NEUTRAL
+5237618,LED Desk Lamp,Home & Kitchen,Worst purchase I've made.,1,NEGATIVE
+5316444,Self-Help Motivational Book,Books,Easy to use and durable.,5,POSITIVE
+5316444,Self-Help Motivational Book,Books,Fast shipping and great packaging.,5,POSITIVE
+5316444,Self-Help Motivational Book,Books,I'm very satisfied with this purchase.,5,POSITIVE
+5316444,Self-Help Motivational Book,Books,"Works, but not as described.",3,NEUTRAL
+5316444,Self-Help Motivational Book,Books,Would not recommend to anyone.,2,NEGATIVE
+5413704,Cookbook with Recipes,Books,Great product! Works perfectly.,5,POSITIVE
+5413704,Cookbook with Recipes,Books,Exactly what I needed!,5,POSITIVE
+5413704,Cookbook with Recipes,Books,I'm very satisfied with this purchase.,5,POSITIVE
+5413704,Cookbook with Recipes,Books,"Does the job, but not impressed.",3,NEUTRAL
+5413704,Cookbook with Recipes,Books,Very disappointed with this item.,2,NEGATIVE
+6215130,Noise-Canceling Headphones,Electronics,Exactly what I needed!,5,POSITIVE
+6215130,Noise-Canceling Headphones,Electronics,I'm very satisfied with this purchase.,5,POSITIVE
+6215130,Noise-Canceling Headphones,Electronics,Exactly what I needed!,4,POSITIVE
+6215130,Noise-Canceling Headphones,Electronics,Decent value for the money.,3,NEUTRAL
+6215130,Noise-Canceling Headphones,Electronics,Not as shown online.,1,NEGATIVE
+6224586,Leather Crossbody Bag,Fashion,Great product! Works perfectly.,5,POSITIVE
+6224586,Leather Crossbody Bag,Fashion,Great product! Works perfectly.,4,POSITIVE
+6224586,Leather Crossbody Bag,Fashion,"Does the job, but not impressed.",4,POSITIVE
+6224586,Leather Crossbody Bag,Fashion,"Does the job, but not impressed.",3,NEUTRAL
+6224586,Leather Crossbody Bag,Fashion,"It's okay, nothing special.",2,NEGATIVE
+6843264,Memory Foam Pillow,Health & Personal Care,Fast shipping and great packaging.,4,POSITIVE
+6843264,Memory Foam Pillow,Health & Personal Care,Fast shipping and great packaging.,5,POSITIVE
+6843264,Memory Foam Pillow,Health & Personal Care,Fast shipping and great packaging.,4,POSITIVE
+6843264,Memory Foam Pillow,Health & Personal Care,"Does the job, but not impressed.",3,NEUTRAL
+6843264,Memory Foam Pillow,Health & Personal Care,Would not recommend to anyone.,2,NEGATIVE
+7307260,Natural Shampoo Set,Beauty,Fast shipping and great packaging.,5,POSITIVE
+7307260,Natural Shampoo Set,Beauty,Top-notch build and performance.,5,POSITIVE
+7307260,Natural Shampoo Set,Beauty,Top-notch build and performance.,5,POSITIVE
+7307260,Natural Shampoo Set,Beauty,Decent value for the money.,3,NEUTRAL
+7307260,Natural Shampoo Set,Beauty,"It's okay, nothing special.",2,NEGATIVE
+7686351,Hand Sanitizer Gel,Health & Personal Care,Highly recommend. Excellent quality.,5,POSITIVE
+7686351,Hand Sanitizer Gel,Health & Personal Care,Top-notch build and performance.,5,POSITIVE
+7686351,Hand Sanitizer Gel,Health & Personal Care,Great product! Works perfectly.,4,POSITIVE
+7686351,Hand Sanitizer Gel,Health & Personal Care,"Does the job, but not impressed.",3,NEUTRAL
+7686351,Hand Sanitizer Gel,Health & Personal Care,Worst purchase I've made.,1,NEGATIVE
+7882388,Non-Stick Frying Pan,Home & Kitchen,Fast shipping and great packaging.,5,POSITIVE
+7882388,Non-Stick Frying Pan,Home & Kitchen,Well worth the price!,5,POSITIVE
+7882388,Non-Stick Frying Pan,Home & Kitchen,"It's okay, nothing special.",4,POSITIVE
+7882388,Non-Stick Frying Pan,Home & Kitchen,"Not bad, but has some issues.",3,NEUTRAL
+7882388,Non-Stick Frying Pan,Home & Kitchen,Very disappointed with this item.,2,NEGATIVE
+8129390,Mystery Thriller Novel,Books,I'm very satisfied with this purchase.,4,POSITIVE
+8129390,Mystery Thriller Novel,Books,Fast shipping and great packaging.,5,POSITIVE
+8129390,Mystery Thriller Novel,Books,"It's okay, nothing special.",4,POSITIVE
+8129390,Mystery Thriller Novel,Books,"Does the job, but not impressed.",3,NEUTRAL
+8129390,Mystery Thriller Novel,Books,Poor quality and broke quickly.,2,NEGATIVE
+8261104,Water Bottle,Sports & Outdoors,I'm very satisfied with this purchase.,4,POSITIVE
+8261104,Water Bottle,Sports & Outdoors,Easy to use and durable.,5,POSITIVE
+8261104,Water Bottle,Sports & Outdoors,I'm very satisfied with this purchase.,4,POSITIVE
+8261104,Water Bottle,Sports & Outdoors,"Does the job, but not impressed.",3,NEUTRAL
+8261104,Water Bottle,Sports & Outdoors,Poor quality and broke quickly.,1,NEGATIVE
+9263650,Slim Fit Denim Jeans,Fashion,Highly recommend. Excellent quality.,5,POSITIVE
+9263650,Slim Fit Denim Jeans,Fashion,Fast shipping and great packaging.,4,POSITIVE
+9263650,Slim Fit Denim Jeans,Fashion,Exactly what I needed!,5,POSITIVE
+9263650,Slim Fit Denim Jeans,Fashion,"Works, but not as described.",3,NEUTRAL
+9263650,Slim Fit Denim Jeans,Fashion,Worst purchase I've made.,2,NEGATIVE
+9274176,Board Game Bundle,Toys & Games,Well worth the price!,5,POSITIVE
+9274176,Board Game Bundle,Toys & Games,Fast shipping and great packaging.,5,POSITIVE
+9274176,Board Game Bundle,Toys & Games,Top-notch build and performance.,5,POSITIVE
+9274176,Board Game Bundle,Toys & Games,"Works, but not as described.",3,NEUTRAL
+9274176,Board Game Bundle,Toys & Games,"Terrible experience, do not buy.",1,NEGATIVE
+9640962,Electric Toothbrush,Health & Personal Care,Well worth the price!,5,POSITIVE
+9640962,Electric Toothbrush,Health & Personal Care,"Average product, nothing stands out.",4,POSITIVE
+9640962,Electric Toothbrush,Health & Personal Care,Easy to use and durable.,5,POSITIVE
+9640962,Electric Toothbrush,Health & Personal Care,"Not bad, but has some issues.",3,NEUTRAL
+9640962,Electric Toothbrush,Health & Personal Care,"Terrible experience, do not buy.",1,NEGATIVE
+964279,Smartwatch Fitness Tracker,Electronics,Great product! Works perfectly.,4,POSITIVE
+964279,Smartwatch Fitness Tracker,Electronics,Well worth the price!,5,POSITIVE
+964279,Smartwatch Fitness Tracker,Electronics,"Average product, nothing stands out.",4,POSITIVE
+964279,Smartwatch Fitness Tracker,Electronics,"Could be better, but acceptable.",3,NEUTRAL
+964279,Smartwatch Fitness Tracker,Electronics,Poor quality and broke quickly.,1,NEGATIVE
+9757659,LEGO Building Kit,Toys & Games,Exactly what I needed!,5,POSITIVE
+9757659,LEGO Building Kit,Toys & Games,Exactly what I needed!,4,POSITIVE
+9757659,LEGO Building Kit,Toys & Games,Highly recommend. Excellent quality.,5,POSITIVE
+9757659,LEGO Building Kit,Toys & Games,"Not bad, but has some issues.",3,NEUTRAL
+9757659,LEGO Building Kit,Toys & Games,Poor quality and broke quickly.,2,NEGATIVE

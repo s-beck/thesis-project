@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.thesis</groupId>
+        <artifactId>thesis-sentiment-shop</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>inference-api</artifactId>
+    <name>inference-api</name>
+    <description>
+        Public contract of the ML integration boundary. Contains only the
+        SentimentClassifier interface and its data records. No Spring, no
+        framework dependencies — every variant (E-Sync, E-Async, S-*, X-*)
+        depends on this module and provides its own implementation.
+    </description>
+</project>

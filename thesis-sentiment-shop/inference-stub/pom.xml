@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.thesis</groupId>
+        <artifactId>thesis-sentiment-shop</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>inference-stub</artifactId>
+    <name>inference-stub</name>
+    <description>
+        Default no-op SentimentClassifier implementation used while the
+        web application is being built (chapter 3). Replaced by variant-
+        specific implementations in chapter 4.
+    </description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.thesis</groupId>
+            <artifactId>inference-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+    </dependencies>
+</project>

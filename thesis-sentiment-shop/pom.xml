@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.3.5</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>com.thesis</groupId>
+    <artifactId>thesis-sentiment-shop</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>sentiment-shop (parent)</name>
+    <description>
+        Reference application for the thesis "Integration of Machine Learning Components in
+        Web-Based Software Systems: A Comparative Analysis of Architectural Patterns".
+    </description>
+
+    <modules>
+        <module>inference-api</module>
+        <module>inference-stub</module>
+        <module>persistence</module>
+        <module>catalog</module>
+        <module>reviews</module>
+        <module>web</module>
+        <module>sample-data</module>
+    </modules>
+
+    <properties>
+        <java.version>21</java.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <mariadb.driver.version>3.4.1</mariadb.driver.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Internal modules -->
+<!--            <dependency>-->
+<!--                <groupId>com.thesis</groupId>-->
+<!--                <artifactId>inference-api</artifactId>-->
+<!--                <version>${project.version}</version>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>com.thesis</groupId>-->
+<!--                <artifactId>inference-stub</artifactId>-->
+<!--                <version>${project.version}</version>-->
+<!--            </dependency>-->
+            <dependency>
+                <groupId>com.thesis</groupId>
+                <artifactId>persistence</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.thesis</groupId>
+                <artifactId>catalog</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.thesis</groupId>
+                <artifactId>reviews</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.thesis</groupId>
+                <artifactId>sample-data</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- MariaDB driver -->
+            <dependency>
+                <groupId>org.mariadb.jdbc</groupId>
+                <artifactId>mariadb-java-client</artifactId>
+                <version>${mariadb.driver.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <release>21</release>
+                        <parameters>true</parameters>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>
