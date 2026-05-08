@@ -1,0 +1,72 @@
+# --- Maven ---
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# --- IntelliJ IDEA ---
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# --- Eclipse / VS Code (in case you ever open it elsewhere) ---
+.classpath
+.project
+.settings/
+.vscode/*
+.factorypath
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+.c9/
+*.launch
+*.sublime-workspace
+
+# --- Spring Boot ---
+HELP.md
+*.log
+logs/
+log/
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+
+# --- Environment / secrets ---
+config.env
+.env
+.env.local
+*.env.local
+
+# --- Node / Angular ---
+/node_modules
+npm-debug.log
+yarn-error.log
+/dist
+.angular/
+*.tsbuildinfo
+
+# --- Test / coverage ---
+/coverage
+.nyc_output/
+
+# --- Logs ---
+npm-debug.log*
+yarn-debug.log*
+
+# --- Compiled output ---
+/tmp
+/out-tsc
+/bazel-out
+
+# -- Miscellaneous ---
+.sass-cache/
+/connect.lock
+/libpeerconnection.log
+testem.log
+/typings
+
