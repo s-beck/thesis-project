@@ -2,30 +2,10 @@
 Export the sentiment classification model to ONNX.
 
 This script is run ONCE, by hand, to produce the model artefact that is
-then consumed by all six implementation variants. It is NOT part of the
-Maven build and is NOT invoked at application runtime — keeping Python
-out of the JVM's path
-
-The script does three things:
-  1. Downloads the HuggingFace checkpoint specified by MODEL_ID.
-  2. Exports it to ONNX format via Optimum's official exporter.
-  3. Validates the exported artefact with a single inference, asserting
-     that the label mapping is the one the Java-side classifier expects
-     (0=Negative, 1=Neutral, 2=Positive).
-
-If step 3 fails, the artefact is unsafe to ship and the script exits
-non-zero. This guards against a future checkpoint silently rotating the
-label order, which would manifest in production as a sentiment classifier
-that systematically swaps positive and negative reviews.
-
-Usage:
-    python -m venv .venv
-    source .venv/bin/activate
-    pip install -r requirements.txt
-    python export.py
-
-Output is written to ../../model-artefact/ relative to this script.
+then consumed by all six implementation variants.
 """
+
+# AI-assisted code: Generated with Claude (Anthropic) and reviewed/modified by the author.
 
 from __future__ import annotations
 

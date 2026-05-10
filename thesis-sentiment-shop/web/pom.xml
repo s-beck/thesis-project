@@ -13,10 +13,9 @@
     <name>web</name>
     <description>
         REST controllers, security configuration, Spring Boot main.
-        This is the only module that knows about every other module.
-        It is also the only module that depends on a concrete classifier
-        implementation (currently inference-stub) — making "swap the
-        classifier" a single-line change here, not a refactor.
+        This is the only module that knows about every other module and
+        also the only module that depends on a concrete classifier
+        implementation, which is selected on build time via Maven profiles.
     </description>
 
     <dependencies>
@@ -81,8 +80,8 @@
         </profile>
 
         <!--
-            e-sync — embedded synchronous variant. Activate with:
-            Requires the ONNX artefact to be available at the path referenced by SENTIMENT_MODEL_PATH (default: ./model-artefact).
+            e-sync — embedded synchronous variant.
+            Requires the ONNX artefact to be available at the path referenced by SENTIMENT_MODEL_PATH.
         -->
         <profile>
             <id>e-sync</id>

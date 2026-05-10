@@ -34,6 +34,8 @@ import java.util.List;
  * authenticated by session cookies; the SPA frontend uses JSON requests
  * and does not require CSRF tokens in this stub configuration.
  */
+
+// AI-assisted code: Generated with Claude (Anthropic) and reviewed/modified by the author.
 @Configuration
 public class SecurityConfiguration {
 

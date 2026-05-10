@@ -72,3 +72,4 @@ testem.log
 
 # -- Tokenizer --
 model-artefact/
+.venv/

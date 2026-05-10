@@ -1,8 +1,8 @@
-# Sample data
+# Sample Dataset
 
 ## Source
 
-`reviews_curated.csv` is a curated subset of:
+`reviews_seed.csv` is a curated subset of:
 
 > Kumar, A. (2024). *Synthetic E-commerce Product Reviews Dataset.*
 > Kaggle.
@@ -58,7 +58,7 @@ and 1 Negative review were taken.
 This subset is bundled in the JAR so that a fresh clone of the project
 can boot a populated database without external dependencies.
 
-## Regenerating the seed subset
+## Regeneration of the seed subset
 
 To regenerate `reviews_seed.csv` from the original 4M-row
 dataset:
@@ -67,6 +67,7 @@ dataset:
 2. Save it as `ecommerce_product_reviews_dataset.csv`.
 3. Run the script below (Python 3, no extra dependencies):
 
+_AI-assisted code: Generated with Claude (Anthropic) and reviewed/modified by the author._
 ```python
 import csv
 
@@ -114,7 +115,7 @@ with open('reviews_seed.csv', 'w', encoding='utf-8', newline='') as f:
 
 ## Loader behaviour
 
-`SampleDataLoader` (in `com.thesis.sentimentshop.sampledata`) is a
+`SampleDataLoader` is a
 Spring Boot `CommandLineRunner` that:
 
 - Runs at application startup
