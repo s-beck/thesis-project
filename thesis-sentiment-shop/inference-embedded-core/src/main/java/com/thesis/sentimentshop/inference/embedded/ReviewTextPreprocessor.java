@@ -1,4 +1,4 @@
-package com.thesis.sentimentshop.inference.embeddedsync;
+package com.thesis.sentimentshop.inference.embedded;
 
 import java.util.regex.Pattern;
 
@@ -27,7 +27,7 @@ public class ReviewTextPreprocessor {
 
     private static final Pattern URL = Pattern.compile("https?://\\S+");
 
-    String preprocess(String text) {
+    public String preprocess(String text) {
         // Order matters: replace URLs first, otherwise an URL containing
         // an @ (e.g. an email-style query string) would be partially
         // mangled by the mention pattern.

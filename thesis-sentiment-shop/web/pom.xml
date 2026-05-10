@@ -92,6 +92,21 @@
                 </dependency>
             </dependencies>
         </profile>
+
+        <!--
+            e-async — embedded asynchronous variant.
+            Same ONNX model artefact as e-sync. Differs only in that classification requests are dispatched
+            to a bounded in-process thread pool, with the result delivered back to the review service via callback.
+        -->
+        <profile>
+            <id>e-async</id>
+            <dependencies>
+                <dependency>
+                    <groupId>com.thesis</groupId>
+                    <artifactId>inference-embedded-async</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
     </profiles>
 
     <build>

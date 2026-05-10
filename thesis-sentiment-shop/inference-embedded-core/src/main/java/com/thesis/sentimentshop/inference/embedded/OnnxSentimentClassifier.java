@@ -1,4 +1,4 @@
-package com.thesis.sentimentshop.inference.embeddedsync;
+package com.thesis.sentimentshop.inference.embedded;
 
 import ai.djl.huggingface.tokenizers.Encoding;
 import ai.djl.huggingface.tokenizers.HuggingFaceTokenizer;

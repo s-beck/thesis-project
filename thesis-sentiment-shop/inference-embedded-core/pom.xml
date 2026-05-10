@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.thesis</groupId>
+        <artifactId>thesis-sentiment-shop</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>inference-embedded-core</artifactId>
+    <name>inference-embedded-core</name>
+    <description>
+        Shared core for the embedded variants (E-Sync, E-Async). Contains the
+        ONNX-Runtime-backed SentimentClassifier implementation, the CardiffNLP
+        text preprocessor, and the fault-injection decorator. The sync and async
+        variant modules depend on this core and add only their dispatch layer
+        and Spring wiring.
+
+        This module is a compile-time library shared between two variant
+        modules. At runtime it does not constitute a deployment unit of its
+        own — both embedded variants ship as a single Spring Boot fat jar,
+        preserving the modular monolith property.
+    </description>
+    <dependencies>
+        <dependency>
+            <groupId>com.thesis</groupId>
+            <artifactId>inference-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.microsoft.onnxruntime</groupId>
+            <artifactId>onnxruntime</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ai.djl.huggingface</groupId>
+            <artifactId>tokenizers</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>

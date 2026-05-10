@@ -2,6 +2,7 @@ package com.thesis.sentimentshop.reviews;
 
 import com.thesis.sentimentshop.catalog.Product;
 import com.thesis.sentimentshop.inference.Sentiment;
+import com.thesis.sentimentshop.inference.SentimentClassificationException.FailureMode;
 import com.thesis.sentimentshop.persistence.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -41,6 +42,10 @@ public class Review extends BaseEntity {
     @Column(name = "classified_at")
     private Instant classifiedAt;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "classification_failure_mode", length = 20)
+    private FailureMode classificationFailureMode;
+
     protected Review() {
         // JPA
     }
@@ -56,6 +61,14 @@ public class Review extends BaseEntity {
         this.sentiment = sentiment;
         this.sentimentConfidence = confidence;
         this.classifiedAt = Instant.now();
+        this.classificationFailureMode = null;
+    }
+
+    public void recordFailure(FailureMode failureMode) {
+        this.sentiment = null;
+        this.sentimentConfidence = null;
+        this.classifiedAt = Instant.now();
+        this.classificationFailureMode = failureMode;
     }
 
     public Product getProduct() { return product; }
@@ -65,4 +78,5 @@ public class Review extends BaseEntity {
     public Sentiment getSentiment() { return sentiment; }
     public Double getSentimentConfidence() { return sentimentConfidence; }
     public Instant getClassifiedAt() { return classifiedAt; }
+    public FailureMode getClassificationFailureMode() { return classificationFailureMode; }
 }
