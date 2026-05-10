@@ -43,7 +43,7 @@ config.env
 *.env.local
 
 # --- Node / Angular ---
-/node_modules
+node_modules/
 npm-debug.log
 yarn-error.log
 /dist
