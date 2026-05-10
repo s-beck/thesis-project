@@ -13,8 +13,7 @@
     <name>inference-stub</name>
     <description>
         Default no-op SentimentClassifier implementation used while the
-        web application is being built (chapter 3). Replaced by variant-
-        specific implementations in chapter 4.
+        web application is being built. Replaced by variant-specific implementations.
     </description>
 
     <dependencies>

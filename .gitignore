@@ -70,3 +70,5 @@ yarn-debug.log*
 testem.log
 /typings
 
+# -- Tokenizer --
+model-artefact/

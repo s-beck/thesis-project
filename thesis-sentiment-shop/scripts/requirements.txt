@@ -1,0 +1,10 @@
+# Pinned for reproducibility purposes. The export script is run once;
+# A future re-run should produce a byte-identical ONNX artefact.
+#
+# Versions chosen as of 2026-05; current with optimum-onnx repackaging.
+optimum[onnx]==1.24.0
+transformers==4.46.3
+torch==2.5.1
+onnx==1.17.0
+onnxruntime==1.20.1
+numpy==2.2.0

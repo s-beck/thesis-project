@@ -30,10 +30,6 @@
         </dependency>
         <dependency>
             <groupId>com.thesis</groupId>
-            <artifactId>inference-stub</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.thesis</groupId>
             <artifactId>sample-data</artifactId>
         </dependency>
 
@@ -65,6 +61,39 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <profiles>
+        <!--
+            stub — default profile. Wires the no-op classifier so the application boots without any
+            model artefact present. Activated automatically unless another profile is selected.
+        -->
+        <profile>
+            <id>stub</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>com.thesis</groupId>
+                    <artifactId>inference-stub</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+
+        <!--
+            e-sync — embedded synchronous variant. Activate with:
+            Requires the ONNX artefact to be available at the path referenced by SENTIMENT_MODEL_PATH (default: ./model-artefact).
+        -->
+        <profile>
+            <id>e-sync</id>
+            <dependencies>
+                <dependency>
+                    <groupId>com.thesis</groupId>
+                    <artifactId>inference-embedded-sync</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
 
     <build>
         <plugins>
