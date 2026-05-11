@@ -62,10 +62,6 @@
     </dependencies>
 
     <profiles>
-        <!--
-            stub — default profile. Wires the no-op classifier so the application boots without any
-            model artefact present. Activated automatically unless another profile is selected.
-        -->
         <profile>
             <id>stub</id>
             <activation>
@@ -78,11 +74,6 @@
                 </dependency>
             </dependencies>
         </profile>
-
-        <!--
-            e-sync — embedded synchronous variant.
-            Requires the ONNX artefact to be available at the path referenced by SENTIMENT_MODEL_PATH.
-        -->
         <profile>
             <id>e-sync</id>
             <dependencies>
@@ -92,18 +83,21 @@
                 </dependency>
             </dependencies>
         </profile>
-
-        <!--
-            e-async — embedded asynchronous variant.
-            Same ONNX model artefact as e-sync. Differs only in that classification requests are dispatched
-            to a bounded in-process thread pool, with the result delivered back to the review service via callback.
-        -->
         <profile>
             <id>e-async</id>
             <dependencies>
                 <dependency>
                     <groupId>com.thesis</groupId>
                     <artifactId>inference-embedded-async</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>s-sync</id>
+            <dependencies>
+                <dependency>
+                    <groupId>com.thesis</groupId>
+                    <artifactId>inference-self-hosted-sync</artifactId>
                 </dependency>
             </dependencies>
         </profile>

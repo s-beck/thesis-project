@@ -28,6 +28,8 @@
         <module>inference-embedded-core</module>
         <module>inference-embedded-sync</module>
         <module>inference-embedded-async</module>
+        <module>inference-self-hosted-core</module>
+        <module>inference-self-hosted-sync</module>
         <module>persistence</module>
         <module>catalog</module>
         <module>reviews</module>
@@ -71,6 +73,16 @@
             <dependency>
                 <groupId>com.thesis</groupId>
                 <artifactId>inference-embedded-async</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.thesis</groupId>
+                <artifactId>inference-self-hosted-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.thesis</groupId>
+                <artifactId>inference-self-hosted-sync</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

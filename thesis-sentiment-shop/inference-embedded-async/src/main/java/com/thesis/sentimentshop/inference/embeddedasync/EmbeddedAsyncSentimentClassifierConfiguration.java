@@ -1,10 +1,10 @@
 package com.thesis.sentimentshop.inference.embeddedasync;
 
 import com.thesis.sentimentshop.inference.AsyncSentimentClassifier;
+import com.thesis.sentimentshop.inference.FaultInjectingClassifier;
 import com.thesis.sentimentshop.inference.SentimentClassificationException.FailureMode;
 import com.thesis.sentimentshop.inference.SentimentClassifier;
 import com.thesis.sentimentshop.inference.SentimentResultSink;
-import com.thesis.sentimentshop.inference.embedded.FaultInjectingClassifier;
 import com.thesis.sentimentshop.inference.embedded.OnnxSentimentClassifier;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Value;

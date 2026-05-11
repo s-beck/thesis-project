@@ -1,9 +1,6 @@
-package com.thesis.sentimentshop.inference.embedded;
+package com.thesis.sentimentshop.inference;
 
-import com.thesis.sentimentshop.inference.SentimentClassificationException;
 import com.thesis.sentimentshop.inference.SentimentClassificationException.FailureMode;
-import com.thesis.sentimentshop.inference.SentimentClassifier;
-import com.thesis.sentimentshop.inference.SentimentResult;
 
 import java.util.EnumSet;
 import java.util.Set;
