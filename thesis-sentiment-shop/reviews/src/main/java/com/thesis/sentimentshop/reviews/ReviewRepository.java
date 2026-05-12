@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.Instant;
 import java.util.List;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
@@ -32,4 +33,13 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     long countBySentimentIsNull();
 
     long countBySentiment(Sentiment sentiment);
+
+    // Reviews still in pending state
+    @Query("""
+            SELECT r FROM Review r
+            WHERE r.sentiment IS NULL
+              AND r.classificationFailureMode IS NULL
+              AND r.createdAt < :cutoff
+            """)
+    List<Review> findStalePending(@Param("cutoff") Instant cutoff);
 }

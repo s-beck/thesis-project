@@ -101,6 +101,15 @@
                 </dependency>
             </dependencies>
         </profile>
+        <profile>
+            <id>s-async</id>
+            <dependencies>
+                <dependency>
+                    <groupId>com.thesis</groupId>
+                    <artifactId>inference-self-hosted-async</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
     </profiles>
 
     <build>

@@ -22,7 +22,7 @@ RUN python -c "from transformers import AutoModelForSequenceClassification, Auto
                AutoTokenizer.from_pretrained(name); \
                AutoModelForSequenceClassification.from_pretrained(name)"
 
-COPY classifier.py app.py ./
+COPY classifier.py app.py consumer.py ./
 
 EXPOSE 8000
 

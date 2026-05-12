@@ -84,11 +84,17 @@ public class ReviewService implements SentimentResultSink {
         }
     }
 
+    @Override
     @Transactional
     public void onResult(long reviewId, SentimentResult result) {
         Review review = reviews.findById(reviewId)
                 .orElseThrow(() -> new NoSuchElementException(
                         "review not found: " + reviewId));
+        if (isTerminal(review)) {
+            log.info("Ignoring late result for review {} — already in terminal state ({})",
+                    reviewId, terminalLabel(review));
+            return;
+        }
         review.recordSentiment(result.sentiment(), result.confidence());
     }
 
@@ -98,7 +104,23 @@ public class ReviewService implements SentimentResultSink {
         Review review = reviews.findById(reviewId)
                 .orElseThrow(() -> new NoSuchElementException(
                         "review not found: " + reviewId));
+        if (isTerminal(review)) {
+            log.info("Ignoring late failure ({}) for review {} — already in terminal state ({})",
+                    failureMode, reviewId, terminalLabel(review));
+            return;
+        }
         review.recordFailure(failureMode);
+    }
+
+    private static boolean isTerminal(Review review) {
+        return review.getSentiment() != null || review.getClassificationFailureMode() != null;
+    }
+
+    private static String terminalLabel(Review review) {
+        if (review.getSentiment() != null) {
+            return "sentiment=" + review.getSentiment();
+        }
+        return "failureMode=" + review.getClassificationFailureMode();
     }
 
     @Transactional(readOnly = true)
