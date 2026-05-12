@@ -119,6 +119,15 @@
                 </dependency>
             </dependencies>
         </profile>
+        <profile>
+            <id>x-async</id>
+            <dependencies>
+                <dependency>
+                    <groupId>com.thesis</groupId>
+                    <artifactId>inference-external-async</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
     </profiles>
 
     <build>

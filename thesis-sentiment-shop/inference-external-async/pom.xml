@@ -9,11 +9,13 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>inference-external-sync</artifactId>
-    <name>inference-external-sync</name>
+    <artifactId>inference-external-async</artifactId>
+    <name>inference-external-async</name>
     <description>
-        X-Sync variant: SentimentClassifier implementation that calls the
-        HuggingFace Inference API over synchronous, blocking REST.
+        X-Async variant: AsyncSentimentClassifier implementation that
+        publishes review-classification requests to a RabbitMQ and
+        consumes them on the same JVM via a Java consumer that calls
+        the HuggingFace Inference API.
     </description>
     <dependencies>
         <dependency>
@@ -34,8 +36,21 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.retry</groupId>
+            <artifactId>spring-retry</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
+
 </project>

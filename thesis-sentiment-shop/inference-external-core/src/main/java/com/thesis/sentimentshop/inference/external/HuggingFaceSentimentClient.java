@@ -1,13 +1,10 @@
-package com.thesis.sentimentshop.inference.externalsync;
+package com.thesis.sentimentshop.inference.external;
 
 import com.thesis.sentimentshop.inference.Sentiment;
 import com.thesis.sentimentshop.inference.SentimentClassificationException;
 import com.thesis.sentimentshop.inference.SentimentClassificationException.FailureMode;
 import com.thesis.sentimentshop.inference.SentimentClassifier;
 import com.thesis.sentimentshop.inference.SentimentResult;
-import com.thesis.sentimentshop.inference.external.HuggingFaceClassifyRequest;
-import com.thesis.sentimentshop.inference.external.HuggingFaceClassifyResponse;
-import com.thesis.sentimentshop.inference.external.HuggingFaceLabelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;

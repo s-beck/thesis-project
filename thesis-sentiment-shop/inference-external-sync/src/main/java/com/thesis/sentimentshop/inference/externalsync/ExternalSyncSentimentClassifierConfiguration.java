@@ -3,6 +3,7 @@ package com.thesis.sentimentshop.inference.externalsync;
 import com.thesis.sentimentshop.inference.FaultInjectingClassifier;
 import com.thesis.sentimentshop.inference.SentimentClassificationException.FailureMode;
 import com.thesis.sentimentshop.inference.SentimentClassifier;
+import com.thesis.sentimentshop.inference.external.HuggingFaceSentimentClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;

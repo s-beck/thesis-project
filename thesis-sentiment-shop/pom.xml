@@ -33,6 +33,7 @@
         <module>inference-self-hosted-async</module>
         <module>inference-external-core</module>
         <module>inference-external-sync</module>
+        <module>inference-external-async</module>
         <module>persistence</module>
         <module>catalog</module>
         <module>reviews</module>
@@ -101,6 +102,11 @@
             <dependency>
                 <groupId>com.thesis</groupId>
                 <artifactId>inference-external-sync</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.thesis</groupId>
+                <artifactId>inference-external-async</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
