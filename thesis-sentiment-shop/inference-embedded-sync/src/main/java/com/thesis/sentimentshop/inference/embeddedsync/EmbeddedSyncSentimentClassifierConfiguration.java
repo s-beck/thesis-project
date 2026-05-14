@@ -36,7 +36,7 @@ public class EmbeddedSyncSentimentClassifierConfiguration {
             name = "sentiment.fault-injection.enabled",
             havingValue = "true"
     )
-    public SentimentClassifier faultyOnnxSentimentClassifier(
+    public FaultInjectingClassifierAdapter faultyOnnxSentimentClassifier(
             @Value("${SENTIMENT_MODEL_PATH:./model-artefact}") String modelDir) {
         return new FaultInjectingClassifierAdapter(
                 realClassifier(modelDir),

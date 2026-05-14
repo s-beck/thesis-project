@@ -9,6 +9,8 @@ import com.thesis.sentimentshop.inference.SentimentClassificationException.Failu
 import com.thesis.sentimentshop.inference.SentimentClassifier;
 import com.thesis.sentimentshop.inference.SentimentResult;
 import com.thesis.sentimentshop.inference.SentimentResultSink;
+import com.thesis.sentimentshop.inference.measurement.MeasurementEvent;
+import com.thesis.sentimentshop.inference.measurement.MeasurementLog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -16,6 +18,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -58,30 +62,63 @@ public class ReviewService implements SentimentResultSink {
         Review review = new Review(product, author, text, rating);
 
         if (syncClassifier.isPresent()) {
-            classifySynchronously(review, text, productId);
-            return reviews.save(review);
+            return submitSync(review, text, productId);
         }
+        return submitAsync(review, text, productId);
+    }
 
+    private Review submitSync(Review review, String text, Long productId) {
+        SentimentClassifier classifier = syncClassifier.orElseThrow();
+        Instant t0 = Instant.now();
+        SentimentResult result = null;
+        FailureMode failureMode = null;
+        try {
+            result = classifier.classify(text);
+            review.recordSentiment(result.sentiment(), result.confidence());
+        } catch (SentimentClassificationException e) {
+            log.warn("Classification failed for review on product {}: {} ({})",
+                    productId, e.getMessage(), e.failureMode());
+            review.recordFailure(e.failureMode());
+            failureMode = e.failureMode();
+        }
+        long latencyMs = Duration.between(t0, Instant.now()).toMillis();
+
+        Review saved = reviews.save(review);
+        MeasurementLog.reviewSubmitted(saved.getId(), productId, saved.getCreatedAt());
+        if (result != null) {
+            MeasurementLog.reviewClassified(
+                    saved.getId(),
+                    result.sentiment(),
+                    result.confidence(),
+                    latencyMs,
+                    saved.getClassifiedAt(),
+                    MeasurementEvent.Path.SYNC);
+        } else {
+            MeasurementLog.reviewFailed(
+                    saved.getId(),
+                    failureMode,
+                    latencyMs,
+                    saved.getClassifiedAt(),
+                    MeasurementEvent.Origin.SUBMIT);
+        }
+        return saved;
+    }
+
+    private Review submitAsync(Review review, String text, Long productId) {
         Review persisted = reviews.save(review);
+        MeasurementLog.reviewSubmitted(persisted.getId(), productId, persisted.getCreatedAt());
         try {
             asyncClassifier.orElseThrow().submit(persisted.getId(), text);
         } catch (SentimentClassificationException e) {
             log.warn("Async submission failed for review {} on product {}: {} ({})",
                     persisted.getId(), productId, e.getMessage(), e.failureMode());
             persisted.recordFailure(e.failureMode());
+            long latencyMs =
+                    Duration.between(persisted.getCreatedAt(), Instant.now()).toMillis();
+            MeasurementLog.reviewFailed(persisted.getId(), e.failureMode(),
+                    latencyMs, Instant.now(), MeasurementEvent.Origin.SUBMIT);
         }
         return persisted;
-    }
-
-    private void classifySynchronously(Review review, String text, Long productId) {
-        try {
-            SentimentResult result = syncClassifier.orElseThrow().classify(text);
-            review.recordSentiment(result.sentiment(), result.confidence());
-        } catch (SentimentClassificationException e) {
-            log.warn("Classification failed for review on product {}: {} ({})",
-                    productId, e.getMessage(), e.failureMode());
-            review.recordFailure(e.failureMode());
-        }
     }
 
     @Override
@@ -96,6 +133,13 @@ public class ReviewService implements SentimentResultSink {
             return;
         }
         review.recordSentiment(result.sentiment(), result.confidence());
+        long latencyMs = Duration.between(review.getCreatedAt(), Instant.now()).toMillis();
+        MeasurementLog.reviewClassified(reviewId,
+                result.sentiment(),
+                result.confidence(),
+                latencyMs,
+                review.getClassifiedAt(),
+                MeasurementEvent.Path.ASYNC_CALLBACK);
     }
 
     @Override
@@ -110,6 +154,9 @@ public class ReviewService implements SentimentResultSink {
             return;
         }
         review.recordFailure(failureMode);
+        long latencyMs = Duration.between(review.getCreatedAt(), Instant.now()).toMillis();
+        MeasurementLog.reviewFailed(reviewId, failureMode, latencyMs, Instant.now(),
+                MeasurementEvent.Origin.CALLBACK);
     }
 
     private static boolean isTerminal(Review review) {

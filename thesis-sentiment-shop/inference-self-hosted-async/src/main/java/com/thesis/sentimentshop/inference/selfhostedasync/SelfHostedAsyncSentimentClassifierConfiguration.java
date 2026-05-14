@@ -17,6 +17,7 @@ import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.retry.backoff.FixedBackOffPolicy;
@@ -145,19 +146,32 @@ public class SelfHostedAsyncSentimentClassifierConfiguration {
     }
 
     @Bean
+    @ConditionalOnProperty(
+            name = "sentiment.fault-injection.enabled",
+            havingValue = "false",
+            matchIfMissing = true
+    )
     public AsyncSentimentClassifier selfHostedAsyncSentimentClassifier(
             RabbitTemplate sentimentRabbitTemplate,
             @Value("${sentiment.async.exchange:sentiment.exchange}") String exchange,
             @Value("${sentiment.async.requests-routing-key:requests}") String routingKey,
-            @Value("${sentiment.async.publish-confirm-timeout-ms:2000}") long confirmTimeoutMs,
-            @Value("${sentiment.fault-injection.enabled:false}") boolean faultInjectionEnabled) {
+            @Value("${sentiment.async.publish-confirm-timeout-ms:2000}") long confirmTimeoutMs) {
+        return new RabbitPublishingAsyncSentimentClassifier(
+                sentimentRabbitTemplate, exchange, routingKey, confirmTimeoutMs);
+    }
 
+    @Bean
+    @ConditionalOnProperty(
+            name = "sentiment.fault-injection.enabled",
+            havingValue = "true"
+    )
+    public FaultInjectingAsyncSentimentClassifier faultySelfHostedAsyncSentimentClassifier(
+            RabbitTemplate sentimentRabbitTemplate,
+            @Value("${sentiment.async.exchange:sentiment.exchange}") String exchange,
+            @Value("${sentiment.async.requests-routing-key:requests}") String routingKey,
+            @Value("${sentiment.async.publish-confirm-timeout-ms:2000}") long confirmTimeoutMs) {
         AsyncSentimentClassifier core = new RabbitPublishingAsyncSentimentClassifier(
                 sentimentRabbitTemplate, exchange, routingKey, confirmTimeoutMs);
-
-        if (!faultInjectionEnabled) {
-            return core;
-        }
         return new FaultInjectingAsyncSentimentClassifier(core, SUPPORTED_FAILURE_MODES, VARIANT_NAME);
     }
 

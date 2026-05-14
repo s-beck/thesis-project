@@ -39,6 +39,7 @@
         <module>reviews</module>
         <module>web</module>
         <module>sample-data</module>
+        <module>evaluation</module>
     </modules>
 
     <properties>
@@ -49,6 +50,9 @@
         <mariadb.driver.version>3.4.1</mariadb.driver.version>
         <onnxruntime.version>1.25.0</onnxruntime.version>
         <djl.tokenizers.version>0.36.0</djl.tokenizers.version>
+        <logstash.encoder.version>7.4</logstash.encoder.version>
+        <runtime.spring.evaluation.profile></runtime.spring.evaluation.profile>
+        <run.id></run.id>
     </properties>
 
     <dependencyManagement>
@@ -129,6 +133,11 @@
                 <artifactId>sample-data</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.thesis</groupId>
+                <artifactId>evaluation</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
             <!-- MariaDB driver -->
             <dependency>
@@ -149,6 +158,12 @@
                 <groupId>ai.djl.huggingface</groupId>
                 <artifactId>tokenizers</artifactId>
                 <version>${djl.tokenizers.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.logstash.logback</groupId>
+                <artifactId>logstash-logback-encoder</artifactId>
+                <version>${logstash.encoder.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -12,9 +12,16 @@
     <artifactId>inference-api</artifactId>
     <name>inference-api</name>
     <description>
-        Public contract of the ML integration boundary. Contains only the
-        SentimentClassifier interface and its data records. No Spring, no
-        framework dependencies — every variant (E-Sync, E-Async, S-*, X-*)
-        depends on this module and provides its own implementation.
+        Public contract of the ML integration boundary. Contains the
+        SentimentClassifier / AsyncSentimentClassifier interfaces, their
+        data records, and the MeasurementLog helper used to emit structured
+        evaluation events from every variant.
     </description>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+    </dependencies>
 </project>

@@ -146,6 +146,18 @@
                 </dependency>
             </dependencies>
         </profile>
+        <profile>
+            <id>evaluation</id>
+            <properties>
+                <runtime.spring.evaluation.profile>,evaluation</runtime.spring.evaluation.profile>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>com.thesis</groupId>
+                    <artifactId>evaluation</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
     </profiles>
 
     <build>
@@ -160,6 +172,13 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <workingDirectory>${maven.multiModuleProjectDirectory}/..</workingDirectory>
+                    <jvmArguments>
+                        -Dmeasurement.variant=${runtime.spring.profile}
+                        -Drun.id=${run.id}
+                    </jvmArguments>
+                </configuration>
             </plugin>
         </plugins>
     </build>

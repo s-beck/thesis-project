@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+
+    <springProfile name="evaluation">
+        <springProperty scope="context" name="MEASUREMENT_LOG_PATH"
+                        source="measurement.log.path" defaultValue="logs/measurement"/>
+
+        <appender name="MEASUREMENT_JSONL"
+                  class="ch.qos.logback.core.FileAppender">
+            <file>${MEASUREMENT_LOG_PATH}/${measurement.variant:-unknown}_${run.id:-unknown}.jsonl</file>
+            <append>true</append>
+            <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+                <fieldNames>
+                    <timestamp>timestamp</timestamp>
+                    <message>message</message>
+                    <logger>logger</logger>
+                    <thread>thread</thread>
+                    <level>level</level>
+                    <levelValue>[ignore]</levelValue>
+                    <version>[ignore]</version>
+                </fieldNames>
+            </encoder>
+        </appender>
+
+        <logger name="measurement" level="INFO" additivity="false">
+            <appender-ref ref="MEASUREMENT_JSONL"/>
+        </logger>
+    </springProfile>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+</configuration>

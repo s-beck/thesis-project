@@ -39,7 +39,7 @@ public class ExternalSyncSentimentClassifierConfiguration {
             name = "sentiment.fault-injection.enabled",
             havingValue = "true"
     )
-    public SentimentClassifier faultyHuggingFaceSentimentClassifier(
+    public FaultInjectingClassifier faultyHuggingFaceSentimentClassifier(
             @Value("${sentiment.external.url}") String endpointUrl,
             @Value("${sentiment.external.token:}") String token,
             @Value("${sentiment.external.connect-timeout-ms:2000}") long connectTimeoutMs,

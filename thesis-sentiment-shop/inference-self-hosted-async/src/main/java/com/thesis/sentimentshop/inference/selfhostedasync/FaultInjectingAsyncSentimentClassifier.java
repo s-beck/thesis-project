@@ -1,6 +1,7 @@
 package com.thesis.sentimentshop.inference.selfhostedasync;
 
 import com.thesis.sentimentshop.inference.AsyncSentimentClassifier;
+import com.thesis.sentimentshop.inference.FaultInjectionControl;
 import com.thesis.sentimentshop.inference.SentimentClassificationException;
 import com.thesis.sentimentshop.inference.SentimentClassificationException.FailureMode;
 
@@ -8,7 +9,8 @@ import java.util.EnumSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 
-public final class FaultInjectingAsyncSentimentClassifier implements AsyncSentimentClassifier {
+public final class FaultInjectingAsyncSentimentClassifier
+        implements AsyncSentimentClassifier, FaultInjectionControl {
 
     public enum Disposition {
         IDLE,
@@ -49,6 +51,7 @@ public final class FaultInjectingAsyncSentimentClassifier implements AsyncSentim
         this.variantName = variantName;
     }
 
+    @Override
     public void scheduleFailures(FailureMode mode, int count) {
         if (mode == null) {
             throw new IllegalArgumentException("mode must not be null");
@@ -66,12 +69,41 @@ public final class FaultInjectingAsyncSentimentClassifier implements AsyncSentim
         state.set(InjectionState.armed(mode, count));
     }
 
+    @Override
     public void clear() {
         state.set(InjectionState.idle());
     }
 
-    public InjectionState currentState() {
+    public InjectionState currentInjectionState() {
         return state.get();
+    }
+
+    @Override
+    public Snapshot currentState() {
+        return toSnapshot(state.get());
+    }
+
+    @Override
+    public Set<FailureMode> supportedModes() {
+        return EnumSet.copyOf(supportedModes);
+    }
+
+    @Override
+    public String variantName() {
+        return variantName;
+    }
+
+    private static Snapshot toSnapshot(InjectionState s) {
+        return new Snapshot(
+                switch (s.disposition()) {
+                    case IDLE -> FaultInjectionControl.Disposition.IDLE;
+                    case ARMED -> FaultInjectionControl.Disposition.ARMED;
+                    case SKIPPED -> FaultInjectionControl.Disposition.SKIPPED;
+                },
+                s.mode(),
+                s.remaining(),
+                s.skippedMode(),
+                s.skippedReason());
     }
 
     @Override

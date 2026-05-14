@@ -38,7 +38,7 @@ public class SelfHostedSyncSentimentClassifierConfiguration {
             name = "sentiment.fault-injection.enabled",
             havingValue = "true"
     )
-    public SentimentClassifier faultyRemoteSentimentClassifier(
+    public FaultInjectingClassifier faultyRemoteSentimentClassifier(
             @Value("${sentiment.self-hosted.base-url:http://localhost:18000}") String baseUrl,
             @Value("${sentiment.self-hosted.connect-timeout-ms:2000}") long connectTimeoutMs,
             @Value("${sentiment.self-hosted.read-timeout-ms:5000}") long readTimeoutMs) {
