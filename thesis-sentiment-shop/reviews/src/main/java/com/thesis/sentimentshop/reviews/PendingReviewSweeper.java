@@ -26,15 +26,22 @@ public class PendingReviewSweeper {
     @Scheduled(fixedDelayString = "${sentiment.async.sweeper-interval-ms:5000}")
     @Transactional
     public void sweep() {
-        Instant cutoff = Instant.now().minus(Duration.ofMillis(pendingTimeoutMs));
-        List<Review> stale = reviews.findStalePending(cutoff);
-        if (stale.isEmpty()) {
-            return;
+        log.debug("Sweeper tick: pendingTimeoutMs={}", pendingTimeoutMs);
+        try {
+            Instant cutoff = Instant.now().minus(Duration.ofMillis(pendingTimeoutMs));
+            List<Review> stale = reviews.findStalePending(cutoff);
+            log.debug("Sweeper found {} stale review(s)", stale.size());
+            if (stale.isEmpty()) {
+                return;
+            }
+            for (Review review : stale) {
+                review.recordFailure(FailureMode.TIMEOUT);
+            }
+            log.warn("Pending-review sweeper flipped {} review(s) to TIMEOUT "
+                    + "(pending longer than {} ms)", stale.size(), pendingTimeoutMs);
+        } catch (Throwable t) {
+            log.error("Pending-review sweeper threw {} — swallowing to keep scheduler alive",
+                    t.getClass().getName(), t);
         }
-        for (Review review : stale) {
-            review.recordFailure(FailureMode.TIMEOUT);
-        }
-        log.warn("Pending-review sweeper flipped {} review(s) to TIMEOUT "
-                + "(pending longer than {} ms)", stale.size(), pendingTimeoutMs);
     }
 }

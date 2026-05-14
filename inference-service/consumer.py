@@ -53,7 +53,7 @@ def _install_signal_handlers() -> None:
     signal.signal(signal.SIGINT, handle)
 
 class MalformedMessageError(Exception):
-    # Raised when a request message cannot be parsed or is missing fields
+    '''Raised when a request message cannot be parsed or is missing fields'''
 
 def _parse_request(body: bytes) -> tuple[int, str]:
     try:
@@ -120,7 +120,7 @@ def _classify_and_publish(
             review_id, delivery_tag,
         )
         connection.add_callback_threadsafe(
-            lambda: _safe_nack(channel, delivery_tag, requeue=True)
+            lambda: _safe_reject(channel, delivery_tag, requeue=True)
         )
         return
 
@@ -155,6 +155,12 @@ def _safe_nack(channel: BlockingChannel, delivery_tag: int, requeue: bool) -> No
         channel.basic_nack(delivery_tag=delivery_tag, requeue=requeue)
     except Exception:
         logger.exception("Failed to nack message (tag=%d, requeue=%s)", delivery_tag, requeue)
+
+def _safe_reject(channel: BlockingChannel, delivery_tag: int, requeue: bool) -> None:
+    try:
+        channel.basic_reject(delivery_tag=delivery_tag, requeue=requeue)
+    except Exception:
+        logger.exception("Failed to reject message (tag=%d, requeue=%s)", delivery_tag, requeue)
 
 def _connect() -> pika.BlockingConnection:
     credentials = pika.PlainCredentials(_RABBITMQ_USER, _RABBITMQ_PASS)

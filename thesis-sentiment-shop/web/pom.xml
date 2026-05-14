@@ -76,6 +76,9 @@
         </profile>
         <profile>
             <id>e-sync</id>
+            <properties>
+                <runtime.spring.profile>e-sync</runtime.spring.profile>
+            </properties>
             <dependencies>
                 <dependency>
                     <groupId>com.thesis</groupId>
@@ -85,6 +88,9 @@
         </profile>
         <profile>
             <id>e-async</id>
+            <properties>
+                <runtime.spring.profile>e-async</runtime.spring.profile>
+            </properties>
             <dependencies>
                 <dependency>
                     <groupId>com.thesis</groupId>
@@ -94,6 +100,9 @@
         </profile>
         <profile>
             <id>s-sync</id>
+            <properties>
+                <runtime.spring.profile>s-sync</runtime.spring.profile>
+            </properties>
             <dependencies>
                 <dependency>
                     <groupId>com.thesis</groupId>
@@ -103,6 +112,9 @@
         </profile>
         <profile>
             <id>s-async</id>
+            <properties>
+                <runtime.spring.profile>s-async</runtime.spring.profile>
+            </properties>
             <dependencies>
                 <dependency>
                     <groupId>com.thesis</groupId>
@@ -112,6 +124,9 @@
         </profile>
         <profile>
             <id>x-sync</id>
+            <properties>
+                <runtime.spring.profile>x-sync</runtime.spring.profile>
+            </properties>
             <dependencies>
                 <dependency>
                     <groupId>com.thesis</groupId>
@@ -121,6 +136,9 @@
         </profile>
         <profile>
             <id>x-async</id>
+            <properties>
+                <runtime.spring.profile>x-async</runtime.spring.profile>
+            </properties>
             <dependencies>
                 <dependency>
                     <groupId>com.thesis</groupId>
@@ -131,6 +149,13 @@
     </profiles>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

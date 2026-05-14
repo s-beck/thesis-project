@@ -150,7 +150,7 @@ public class SelfHostedAsyncSentimentClassifierConfiguration {
             @Value("${sentiment.async.exchange:sentiment.exchange}") String exchange,
             @Value("${sentiment.async.requests-routing-key:requests}") String routingKey,
             @Value("${sentiment.async.publish-confirm-timeout-ms:2000}") long confirmTimeoutMs,
-            @Value("${sentiment.fault-injection.enabled:true}") boolean faultInjectionEnabled) {
+            @Value("${sentiment.fault-injection.enabled:false}") boolean faultInjectionEnabled) {
 
         AsyncSentimentClassifier core = new RabbitPublishingAsyncSentimentClassifier(
                 sentimentRabbitTemplate, exchange, routingKey, confirmTimeoutMs);

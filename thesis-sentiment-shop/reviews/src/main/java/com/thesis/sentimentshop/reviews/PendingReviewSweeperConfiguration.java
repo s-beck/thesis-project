@@ -1,8 +1,7 @@
 package com.thesis.sentimentshop.reviews;
 
-import com.thesis.sentimentshop.inference.AsyncSentimentClassifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,7 +10,11 @@ import org.springframework.context.annotation.Configuration;
 public class PendingReviewSweeperConfiguration {
 
     @Bean
-    @ConditionalOnBean(AsyncSentimentClassifier.class)
+    @ConditionalOnProperty(
+            name = "sentiment.async.sweeper.enabled",
+            havingValue = "true",
+            matchIfMissing = false
+    )
     public PendingReviewSweeper pendingReviewSweeper(
             ReviewRepository reviews,
             @Value("${sentiment.async.pending-timeout-ms:30000}") long pendingTimeoutMs) {
