@@ -1,0 +1,25 @@
+variant,failure_mode,outcome,mechanism,fault_phase_summary,detail
+e-async,MODEL_ERROR,INJECTED,injector,fault-phase: 10/10 MODEL_ERROR,wrapper accepted; full three-phase scenario completed
+e-async,TIMEOUT,SKIPPED_BY_WRAPPER,injector,,wrapper does not support this mode; no structural fallback
+e-async,UNKNOWN,INJECTED,injector,fault-phase: 10/10 UNKNOWN,wrapper accepted; full three-phase scenario completed
+e-async,UNREACHABLE,INJECTED,injector,fault-phase: 10/10 UNREACHABLE,wrapper accepted; full three-phase scenario completed
+e-sync,MODEL_ERROR,INJECTED,injector,fault-phase: 10/10 MODEL_ERROR,wrapper accepted; full three-phase scenario completed
+e-sync,TIMEOUT,SKIPPED_BY_WRAPPER,injector,,wrapper does not support this mode; no structural fallback
+e-sync,UNKNOWN,INJECTED,injector,fault-phase: 10/10 UNKNOWN,wrapper accepted; full three-phase scenario completed
+e-sync,UNREACHABLE,SKIPPED_BY_WRAPPER,injector,,wrapper does not support this mode; no structural fallback
+s-async,MODEL_ERROR,SKIPPED_BY_WRAPPER,injector,,wrapper does not support this mode; no structural fallback
+s-async,TIMEOUT,STRUCTURAL,structural,fault-phase: 0/10 TIMEOUT,broker-stop mechanism (pending-timeout=10000ms); sweeper-driven
+s-async,UNKNOWN,INJECTED,injector,fault-phase: 10/10 UNKNOWN,wrapper accepted; full three-phase scenario completed
+s-async,UNREACHABLE,INJECTED,injector,fault-phase: 10/10 UNREACHABLE,wrapper accepted; full three-phase scenario completed
+s-sync,MODEL_ERROR,INJECTED,injector,fault-phase: 10/10 MODEL_ERROR,wrapper accepted; full three-phase scenario completed
+s-sync,TIMEOUT,INJECTED,injector,fault-phase: 10/10 TIMEOUT,wrapper accepted; full three-phase scenario completed
+s-sync,UNKNOWN,INJECTED,injector,fault-phase: 10/10 UNKNOWN,wrapper accepted; full three-phase scenario completed
+s-sync,UNREACHABLE,INJECTED,injector,fault-phase: 10/10 UNREACHABLE,wrapper accepted; full three-phase scenario completed
+x-async,MODEL_ERROR,SKIPPED_BY_WRAPPER,injector,,wrapper does not support this mode; no structural fallback
+x-async,TIMEOUT,STRUCTURAL,structural,fault-phase: 0/10 TIMEOUT,broker-stop mechanism (pending-timeout=10000ms); sweeper-driven
+x-async,UNKNOWN,INJECTED,injector,fault-phase: 10/10 UNKNOWN,wrapper accepted; full three-phase scenario completed
+x-async,UNREACHABLE,INJECTED,injector,fault-phase: 10/10 UNREACHABLE,wrapper accepted; full three-phase scenario completed
+x-sync,MODEL_ERROR,INJECTED,injector,fault-phase: 10/10 MODEL_ERROR,wrapper accepted; full three-phase scenario completed
+x-sync,TIMEOUT,INJECTED,injector,fault-phase: 10/10 TIMEOUT,wrapper accepted; full three-phase scenario completed
+x-sync,UNKNOWN,INJECTED,injector,fault-phase: 10/10 UNKNOWN,wrapper accepted; full three-phase scenario completed
+x-sync,UNREACHABLE,INJECTED,injector,fault-phase: 10/10 UNREACHABLE,wrapper accepted; full three-phase scenario completed

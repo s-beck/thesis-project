@@ -1,0 +1,58 @@
+variant,failure_mode,outcome,mechanism,phase,review_count,classified_count,failed_count,expected_failure_mode_match,swept_count,dlq_count,notes
+e-async,MODEL_ERROR,INJECTED,injector,baseline,10,10,0,n/a,0,0,
+e-async,MODEL_ERROR,INJECTED,injector,fault,10,0,10,10/10,0,0,
+e-async,MODEL_ERROR,INJECTED,injector,recovery,10,10,0,n/a,0,0,
+e-async,UNKNOWN,INJECTED,injector,baseline,10,10,0,n/a,0,0,
+e-async,UNKNOWN,INJECTED,injector,fault,10,0,10,10/10,0,0,
+e-async,UNKNOWN,INJECTED,injector,recovery,10,10,0,n/a,0,0,
+e-async,UNREACHABLE,INJECTED,injector,baseline,10,10,0,n/a,0,0,
+e-async,UNREACHABLE,INJECTED,injector,fault,10,0,10,10/10,0,0,
+e-async,UNREACHABLE,INJECTED,injector,recovery,10,10,0,n/a,0,0,
+e-sync,MODEL_ERROR,INJECTED,injector,baseline,10,10,0,n/a,0,0,
+e-sync,MODEL_ERROR,INJECTED,injector,fault,10,0,10,10/10,0,0,
+e-sync,MODEL_ERROR,INJECTED,injector,recovery,10,10,0,n/a,0,0,
+e-sync,UNKNOWN,INJECTED,injector,baseline,10,10,0,n/a,0,0,
+e-sync,UNKNOWN,INJECTED,injector,fault,10,0,10,10/10,0,0,
+e-sync,UNKNOWN,INJECTED,injector,recovery,10,10,0,n/a,0,0,
+s-async,TIMEOUT,STRUCTURAL,structural,baseline,10,10,0,n/a,0,0,
+s-async,TIMEOUT,STRUCTURAL,structural,fault,10,0,10,0/10,0,0,other failure modes seen: UNREACHABLE
+s-async,TIMEOUT,STRUCTURAL,structural,recovery,10,10,0,n/a,0,0,
+s-async,UNKNOWN,INJECTED,injector,baseline,10,10,0,n/a,0,0,
+s-async,UNKNOWN,INJECTED,injector,fault,10,0,10,10/10,0,0,
+s-async,UNKNOWN,INJECTED,injector,recovery,10,10,0,n/a,0,0,
+s-async,UNREACHABLE,INJECTED,injector,baseline,10,10,0,n/a,0,0,
+s-async,UNREACHABLE,INJECTED,injector,fault,10,0,10,10/10,0,0,
+s-async,UNREACHABLE,INJECTED,injector,recovery,10,10,0,n/a,0,0,
+s-sync,MODEL_ERROR,INJECTED,injector,baseline,10,10,0,n/a,0,0,
+s-sync,MODEL_ERROR,INJECTED,injector,fault,10,0,10,10/10,0,0,
+s-sync,MODEL_ERROR,INJECTED,injector,recovery,10,10,0,n/a,0,0,
+s-sync,TIMEOUT,INJECTED,injector,baseline,10,10,0,n/a,0,0,
+s-sync,TIMEOUT,INJECTED,injector,fault,10,0,10,10/10,0,0,
+s-sync,TIMEOUT,INJECTED,injector,recovery,10,10,0,n/a,0,0,
+s-sync,UNKNOWN,INJECTED,injector,baseline,10,10,0,n/a,0,0,
+s-sync,UNKNOWN,INJECTED,injector,fault,10,0,10,10/10,0,0,
+s-sync,UNKNOWN,INJECTED,injector,recovery,10,10,0,n/a,0,0,
+s-sync,UNREACHABLE,INJECTED,injector,baseline,10,10,0,n/a,0,0,
+s-sync,UNREACHABLE,INJECTED,injector,fault,10,0,10,10/10,0,0,
+s-sync,UNREACHABLE,INJECTED,injector,recovery,10,10,0,n/a,0,0,
+x-async,TIMEOUT,STRUCTURAL,structural,baseline,10,0,10,n/a,0,0,unexpected 10 failed in baseline
+x-async,TIMEOUT,STRUCTURAL,structural,fault,10,0,10,0/10,0,0,other failure modes seen: UNREACHABLE
+x-async,TIMEOUT,STRUCTURAL,structural,recovery,10,0,10,n/a,0,0,unexpected 10 failed in recovery
+x-async,UNKNOWN,INJECTED,injector,baseline,10,0,10,n/a,0,0,unexpected 10 failed in baseline
+x-async,UNKNOWN,INJECTED,injector,fault,10,0,10,10/10,0,0,
+x-async,UNKNOWN,INJECTED,injector,recovery,10,0,10,n/a,0,0,unexpected 10 failed in recovery
+x-async,UNREACHABLE,INJECTED,injector,baseline,10,0,10,n/a,0,0,unexpected 10 failed in baseline
+x-async,UNREACHABLE,INJECTED,injector,fault,10,0,10,10/10,0,0,
+x-async,UNREACHABLE,INJECTED,injector,recovery,10,0,10,n/a,0,0,unexpected 10 failed in recovery
+x-sync,MODEL_ERROR,INJECTED,injector,baseline,10,0,10,n/a,0,0,unexpected 10 failed in baseline
+x-sync,MODEL_ERROR,INJECTED,injector,fault,10,0,10,10/10,0,0,
+x-sync,MODEL_ERROR,INJECTED,injector,recovery,10,0,10,n/a,0,0,unexpected 10 failed in recovery
+x-sync,TIMEOUT,INJECTED,injector,baseline,10,0,10,n/a,0,0,unexpected 10 failed in baseline
+x-sync,TIMEOUT,INJECTED,injector,fault,10,0,10,10/10,0,0,
+x-sync,TIMEOUT,INJECTED,injector,recovery,10,0,10,n/a,0,0,unexpected 10 failed in recovery
+x-sync,UNKNOWN,INJECTED,injector,baseline,10,0,10,n/a,0,0,unexpected 10 failed in baseline
+x-sync,UNKNOWN,INJECTED,injector,fault,10,0,10,10/10,0,0,
+x-sync,UNKNOWN,INJECTED,injector,recovery,10,0,10,n/a,0,0,unexpected 10 failed in recovery
+x-sync,UNREACHABLE,INJECTED,injector,baseline,10,0,10,n/a,0,0,unexpected 10 failed in baseline
+x-sync,UNREACHABLE,INJECTED,injector,fault,10,0,10,10/10,0,0,
+x-sync,UNREACHABLE,INJECTED,injector,recovery,10,0,10,n/a,0,0,unexpected 10 failed in recovery

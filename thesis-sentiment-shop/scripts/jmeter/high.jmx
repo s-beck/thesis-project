@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  High load profile: variant-dependent thread count.
+  Default starting values per design doc:
+    E-Sync, E-Async: 20 threads
+    S-Sync, S-Async: 30 threads
+    X-Sync, X-Async: 10 threads (HuggingFace vendor-limited)
+  60 s duration, 0 ms think time, 10 s ramp-up.
+
+  Variables (override on CLI with -J<name>=<value>):
+    host        : SUT host (default: localhost)
+    port        : SUT port (default: 8080)
+    threads     : concurrent thread count (default: 20)
+    ramp        : ramp-up in seconds (default: 10)
+    duration    : run duration in seconds (default: 60)
+    think       : think time in ms (default: 0)
+    corpusFile  : path to corpus.csv (default: ./corpus.csv)
+    resultsFile : path for JTL output (default: results/high.jtl)
+
+  Same plan reused for every variant; thread count parameterised on the CLI.
+-->
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.3">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="High Load Profile">
+      <stringProp name="TestPlan.comments">Parameterised threads, 60 s default duration, configurable think time, 10 s ramp</stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">true</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+    </TestPlan>
+    <hashTree>
+
+      <!-- HTTP defaults: host/port -->
+      <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults">
+        <stringProp name="HTTPSampler.domain">${__P(host,localhost)}</stringProp>
+        <stringProp name="HTTPSampler.port">${__P(port,8080)}</stringProp>
+        <stringProp name="HTTPSampler.protocol">http</stringProp>
+        <stringProp name="HTTPSampler.connect_timeout">5000</stringProp>
+        <stringProp name="HTTPSampler.response_timeout">60000</stringProp>
+        <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+          <collectionProp name="Arguments.arguments"/>
+        </elementProp>
+      </ConfigTestElement>
+      <hashTree/>
+
+      <!-- Common headers -->
+      <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager">
+        <collectionProp name="HeaderManager.headers">
+          <elementProp name="" elementType="Header">
+            <stringProp name="Header.name">Content-Type</stringProp>
+            <stringProp name="Header.value">application/json</stringProp>
+          </elementProp>
+        </collectionProp>
+      </HeaderManager>
+      <hashTree/>
+
+      <!-- Corpus: review_text and rating, sequential read, recycle on EOF -->
+      <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Review Corpus">
+        <stringProp name="filename">${__P(corpusFile,corpus.csv)}</stringProp>
+        <stringProp name="fileEncoding">UTF-8</stringProp>
+        <stringProp name="variableNames">reviewText,rating</stringProp>
+        <stringProp name="delimiter">,</stringProp>
+        <boolProp name="quotedData">true</boolProp>
+        <boolProp name="recycle">true</boolProp>
+        <boolProp name="stopThread">false</boolProp>
+        <stringProp name="shareMode">shareMode.all</stringProp>
+        <boolProp name="ignoreFirstLine">true</boolProp>
+      </CSVDataSet>
+      <hashTree/>
+
+      <!-- setUp thread: fetch product IDs once, push to JMeter property
+           used by the main thread group via __chooseRandom -->
+      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="setUp: fetch product IDs">
+        <intProp name="ThreadGroup.num_threads">1</intProp>
+        <intProp name="ThreadGroup.ramp_time">0</intProp>
+        <stringProp name="ThreadGroup.on_sample_error">stoptest</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController">
+          <stringProp name="LoopController.loops">1</stringProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </SetupThreadGroup>
+      <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /api/products?size=100">
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <stringProp name="HTTPSampler.path">/api/products?size=100</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <!-- JSON extractor: pull every "id" from the product page into
+               productIds_ALL (comma-separated by default match=-1) -->
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Extract product IDs">
+            <stringProp name="JSONPostProcessor.referenceNames">productId</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.content[*].id</stringProp>
+            <stringProp name="JSONPostProcessor.match_numbers">-1</stringProp>
+            <stringProp name="JSONPostProcessor.defaultValues">0</stringProp>
+          </JSONPostProcessor>
+          <hashTree/>
+          <!-- Stash the extracted productId_matchNr value into a JMeter
+               property so the main thread group can compute ${__Random(1,
+               ${__P(productId_matchNr)})} and reference productId_${idx}.
+               Set once in setup, read by every thread thereafter. -->
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="Publish product IDs to props">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="script">
+def count = (vars.get('productId_matchNr') ?: '0') as int
+props.put('productId_count', count.toString())
+for (int i = 1; i &lt;= count; i++) {
+    props.put("productId_${i}", vars.get("productId_${i}"))
+}
+log.info("setUp: published ${count} product IDs to JMeter properties")
+            </stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+
+      <!-- Main thread group: high = parameterised threads, ramp, duration, think -->
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="High: ${__P(threads,20)} threads x ${__P(duration,60)} s">
+        <stringProp name="ThreadGroup.num_threads">${__P(threads,20)}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${__P(ramp,10)}</stringProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">${__P(duration,60)}</stringProp>
+        <stringProp name="ThreadGroup.delay">0</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController">
+          <stringProp name="LoopController.loops">-1</stringProp>
+          <boolProp name="LoopController.continue_forever">true</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+
+        <!-- Pick a product ID uniformly at random per request -->
+        <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="Pick random productId">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="script">
+def count = (props.get('productId_count') ?: '0') as int
+if (count == 0) {
+    throw new IllegalStateException("No product IDs available; setUp thread must have failed.")
+}
+def idx = 1 + new Random().nextInt(count)
+vars.put('productId', props.get("productId_${idx}"))
+          </stringProp>
+        </JSR223PreProcessor>
+        <hashTree/>
+
+        <!-- Configurable think time (0 ms default for high profile) -->
+        <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Think time">
+          <stringProp name="ConstantTimer.delay">${__P(think,0)}</stringProp>
+        </ConstantTimer>
+        <hashTree/>
+
+        <!-- POST /api/products/${productId}/reviews -->
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST review">
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <stringProp name="HTTPSampler.path">/api/products/${productId}/reviews</stringProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&quot;text&quot;:&quot;${__jsonEscape(${reviewText})}&quot;,&quot;rating&quot;:${rating}}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <!-- Capture reviewId from the response body for JTL diagnostics -->
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract reviewId">
+            <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+            <stringProp name="RegexExtractor.refname">reviewId</stringProp>
+            <stringProp name="RegexExtractor.regex">&quot;id&quot;\s*:\s*(\d+)</stringProp>
+            <stringProp name="RegexExtractor.template">$1$</stringProp>
+            <stringProp name="RegexExtractor.match_number">1</stringProp>
+            <stringProp name="RegexExtractor.default">-1</stringProp>
+          </RegexExtractor>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

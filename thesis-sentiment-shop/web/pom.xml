@@ -177,6 +177,8 @@
                     <jvmArguments>
                         -Dmeasurement.variant=${runtime.spring.profile}
                         -Drun.id=${run.id}
+                        -Dmeasurement.log.path=${maven.multiModuleProjectDirectory}/logs/measurement
+                        -Dsentiment.fault-injection.enabled=${sentiment.fault-injection.enabled}
                     </jvmArguments>
                 </configuration>
             </plugin>
