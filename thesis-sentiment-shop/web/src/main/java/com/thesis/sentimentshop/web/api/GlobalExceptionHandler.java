@@ -11,6 +11,8 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
+// AI-assisted code: Created during baseline app init. Generated with Claude (Anthropic) and reviewed by the author.
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 

@@ -2,6 +2,8 @@ import { Component, input } from '@angular/core';
 import { TitleCasePipe, DecimalPipe } from '@angular/common';
 import { Sentiment } from '../core/models/api.models';
 
+// AI-assisted code: Created during baseline app init. Generated with Claude (Anthropic) and reviewed by the author.
+
 @Component({
   selector: 'app-sentiment-badge',
   standalone: true,

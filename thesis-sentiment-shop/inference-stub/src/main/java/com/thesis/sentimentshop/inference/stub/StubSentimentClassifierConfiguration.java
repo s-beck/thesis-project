@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Bean;
 import java.time.Duration;
 import java.time.Instant;
 
+// AI-assisted code: Created during baseline app init. Generated with Claude (Anthropic) and reviewed by the author.
+
 @Configuration
 public class StubSentimentClassifierConfiguration {
 

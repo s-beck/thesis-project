@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- AI-assisted code: Created during baseline app init. Generated with Claude (Anthropic) and reviewed by the author. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
@@ -11,7 +12,10 @@
     </parent>
     <artifactId>persistence</artifactId>
     <name>persistence</name>
-    <description>Shared JPA configuration, base entities, auditing.</description>
+    <!-- Author Edit: updated description -->
+    <description>
+        Shared JPA configuration, base entities, auditing
+    </description>
 
     <dependencies>
         <dependency>

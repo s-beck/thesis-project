@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 
+// AI-assisted code: Created during baseline app init. Generated with Claude (Anthropic) and reviewed by the author.
+
 export const routes: Routes = [
   {
     path: '',

@@ -15,6 +15,8 @@ import jakarta.persistence.Table;
 
 import java.time.Instant;
 
+// AI-assisted code: Created during baseline app init. Generated with Claude (Anthropic) and reviewed by the author.
+
 @Entity
 @Table(name = "reviews")
 public class Review extends BaseEntity {

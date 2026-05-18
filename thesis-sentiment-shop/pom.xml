@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- AI-assisted code: Created during baseline app init. Generated with Claude (Anthropic) and reviewed by the author. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
@@ -17,11 +18,12 @@
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>sentiment-shop (parent)</name>
+    <!-- Author Edit: updated description -->
     <description>
         Reference application for the thesis "Integration of Machine Learning Components in
         Web-Based Software Systems: A Comparative Analysis of Architectural Patterns".
     </description>
-
+    <!-- Author Edit: added new module with each variant implementation -->
     <modules>
         <module>inference-api</module>
         <module>inference-stub</module>
@@ -55,6 +57,7 @@
         <run.id></run.id>
     </properties>
 
+    <!-- Author Edit: updated dependencies with each variant implementation -->
     <dependencyManagement>
         <dependencies>
             <!-- Internal modules -->

@@ -14,6 +14,8 @@ import org.springframework.stereotype.Component;
 import java.time.Duration;
 import java.time.Instant;
 
+// AI-assisted code: Created during baseline app init. Generated with Claude (Anthropic) and reviewed by the author.
+
 @SpringBootApplication
 @ComponentScan(basePackages = "com.thesis.sentimentshop")
 @EntityScan(basePackages = "com.thesis.sentimentshop")

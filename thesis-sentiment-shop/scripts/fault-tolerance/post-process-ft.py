@@ -22,7 +22,7 @@ FILENAME_RE = re.compile(
 @dataclass
 class PhaseStats:
     review_ids: set[int] = field(default_factory=set)
-    classified: set[int] = field(default_factory=set)O
+    classified: set[int] = field(default_factory=set)
     failed: dict[int, str] = field(default_factory=dict)  # reviewId -> failureMode
     swept: set[int] = field(default_factory=set)
     dlq: set[int] = field(default_factory=set)

@@ -7,6 +7,8 @@ import jakarta.persistence.Table;
 
 import java.math.BigDecimal;
 
+// AI-assisted code: Created during baseline app init. Generated with Claude (Anthropic) and reviewed by the author.
+
 @Entity
 @Table(name = "products")
 public class Product extends BaseEntity {

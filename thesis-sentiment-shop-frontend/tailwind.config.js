@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+// AI-assisted code: Created during baseline app init. Generated with Claude (Anthropic) and reviewed by the author.
 module.exports = {
   content: [
     "./src/**/*.{html,ts}",

@@ -4,6 +4,8 @@ import com.thesis.sentimentshop.catalog.Product;
 
 import java.math.BigDecimal;
 
+// AI-assisted code: Created during baseline app init. Generated with Claude (Anthropic) and reviewed by the author.
+
 public record ProductDTO(Long id,
                          String name,
                          String description,

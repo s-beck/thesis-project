@@ -1,3 +1,4 @@
+# AI-assisted code: Created during baseline app init. Generated with Claude (Anthropic) and reviewed by the author.
 services:
   mariadb:
     image: mariadb:10.11
@@ -20,7 +21,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-
+  # Author Edit: Added container
   inference-service:
     build:
       context: ../inference-service
@@ -35,7 +36,7 @@ services:
       timeout: 5s
       start_period: 30s
       retries: 3
-
+  # Author Edit: Added container
   rabbitmq:
     image: rabbitmq:4-management-alpine
     env_file:
@@ -57,7 +58,7 @@ services:
       timeout: 5s
       start_period: 20s
       retries: 5
-
+  # Author Edit: Added container
   inference-service-consumer:
     build:
       context: ../inference-service
@@ -79,4 +80,5 @@ services:
 
 volumes:
   mariadb_data:
+  # Author Edit: Added container
   rabbitmq_data:

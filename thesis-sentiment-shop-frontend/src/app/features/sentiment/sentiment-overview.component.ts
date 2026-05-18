@@ -3,6 +3,8 @@ import { DecimalPipe, TitleCasePipe } from '@angular/common';
 import { SentimentService } from '../../core/api/sentiment.service';
 import { Sentiment, SentimentSummary } from '../../core/models/api.models';
 
+// AI-assisted code: Created during baseline app init. Generated with Claude (Anthropic) and reviewed by the author.
+
 interface DistributionRow {
   label: Sentiment;
   count: number;

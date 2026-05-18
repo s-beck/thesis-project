@@ -19,6 +19,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.List;
 
+// AI-assisted code: Created during baseline app init. Generated with Claude (Anthropic) and reviewed by the author.
+
 /**
  * Minimal authentication stub.
  *
@@ -35,7 +37,6 @@ import java.util.List;
  * and does not require CSRF tokens in this stub configuration.
  */
 
-// AI-assisted code: Generated with Claude (Anthropic) and reviewed/modified by the author.
 @Configuration
 public class SecurityConfiguration {
 

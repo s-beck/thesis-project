@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+/** AI-assisted code: Created during baseline app init. Generated with Claude (Anthropic) and reviewed by the author. **/
+
 html, body {
   height: 100%;
 }

@@ -4,6 +4,8 @@ import { CurrencyPipe } from '@angular/common';
 import { ProductService } from '../../core/api/product.service';
 import { Product } from '../../core/models/api.models';
 
+// AI-assisted code: Created during baseline app init. Generated with Claude (Anthropic) and reviewed by the author.
+
 @Component({
   selector: 'app-product-list',
   standalone: true,

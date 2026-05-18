@@ -15,7 +15,7 @@ The product domain including products and product lookup.
 | `ProductRepository` | Spring Data JPA repository                       |
 | `CatalogService`    | Read-only service: `findAll()`, `findById(...)`  |
 
-## What is stubbed
+## Stubbed behaviour
 
 Some `Product` fields are placeholders rather than real data – see
 `sample-data/README.md`. 

@@ -7,6 +7,8 @@ import { Product, Review } from '../../core/models/api.models';
 import { SentimentBadgeComponent } from '../../shared/sentiment-badge.component';
 import { StarRatingComponent } from '../../shared/star-rating.component';
 
+// AI-assisted code: Created during baseline app init. Generated with Claude (Anthropic) and reviewed by the author.
+
 @Component({
     selector: 'app-product-detail',
     standalone: true,

@@ -3,6 +3,8 @@ package com.thesis.sentimentshop.inference;
 import java.time.Duration;
 import java.time.Instant;
 
+// AI-assisted code: Created during baseline app init. Generated with Claude (Anthropic) and reviewed by the author.
+
 public record SentimentResult(
         Sentiment sentiment,
         double confidence,

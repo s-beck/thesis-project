@@ -1,5 +1,7 @@
 import { Component, computed, input, output, signal } from '@angular/core';
 
+// AI-assisted code: Created during baseline app init. Generated with Claude (Anthropic) and reviewed by the author.
+
 @Component({
   selector: 'app-star-rating',
   standalone: true,

@@ -5,6 +5,8 @@ import com.thesis.sentimentshop.inference.Sentiment;
 import java.util.EnumMap;
 import java.util.Map;
 
+// AI-assisted code: Created during baseline app init. Generated with Claude (Anthropic) and reviewed by the author.
+
 public record SentimentSummary(
         Map<Sentiment, Long> counts,
         long totalClassified,

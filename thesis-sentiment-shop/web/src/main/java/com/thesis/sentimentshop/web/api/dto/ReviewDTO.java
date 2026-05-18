@@ -6,6 +6,8 @@ import com.thesis.sentimentshop.reviews.Review;
 
 import java.time.Instant;
 
+// AI-assisted code: Created during baseline app init. Generated with Claude (Anthropic) and reviewed by the author.
+
 public record ReviewDTO(Long id,
                         Long productId,
                         String author,

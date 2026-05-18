@@ -5,7 +5,7 @@ Runtime for Java.
 
 The model is loaded into the JVM at application start-up, kept resident for the lifetime of
 the process, and called synchronously on the request thread. The actual classifier implementation
-lives in `inference-embedded-core`; this module contributes only the Spring wiring that registers 
+lives in `inference-embedded-core`. This module contributes only the Spring wiring that registers 
 the core's `OnnxSentimentClassifier` as the `SentimentClassifier` bean.
 
 ## Activation
@@ -16,8 +16,8 @@ mvn -Pe-sync -pl web spring-boot:run
 ```
 
 Activating the `e-sync` Maven profile pulls this module onto the
-classpath in place of `inference-stub`. See the top-level README for the
-full profile/variant mapping.
+classpath in place of `inference-stub`. For the full profile/variant mapping
+see the `thesis-sentiment-shop/README.md` one level up.
 
 To run with fault injection enabled (for fault-tolerance tests):
 

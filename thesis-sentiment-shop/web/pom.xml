@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- AI-assisted code: Created during baseline app init. Generated with Claude (Anthropic) and reviewed by the author. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
@@ -11,6 +12,7 @@
     </parent>
     <artifactId>web</artifactId>
     <name>web</name>
+    <!-- Author Edit: updated description -->
     <description>
         REST controllers, security configuration, Spring Boot main.
         This is the only module that knows about every other module and
@@ -61,6 +63,7 @@
         </dependency>
     </dependencies>
 
+    <!-- Author Edit: created Maven profiles to differentiate between the variants. Has been updated with each new implementation -->
     <profiles>
         <profile>
             <id>stub</id>
@@ -161,6 +164,7 @@
     </profiles>
 
     <build>
+        <!-- Author Edit: added resources -->
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -172,13 +176,15 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <!-- Author Edit: added jvm arguments for fault injection tests -->
                 <configuration>
                     <workingDirectory>${maven.multiModuleProjectDirectory}/..</workingDirectory>
                     <jvmArguments>
                         -Dmeasurement.variant=${runtime.spring.profile}
                         -Drun.id=${run.id}
                         -Dmeasurement.log.path=${maven.multiModuleProjectDirectory}/logs/measurement
-                        -Dsentiment.fault-injection.enabled=${sentiment.fault-injection.enabled}
+                        <!-- needs to be activated for fault tolerance tests, otherwise inactive -->
+                        <!-- -Dsentiment.fault-injection.enabled=${sentiment.fault-injection.enabled} -->
                     </jvmArguments>
                 </configuration>
             </plugin>

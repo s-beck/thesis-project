@@ -1,33 +1,50 @@
-# thesis-sentiment-shop-frontend
+# thesis-sentiment-shop-frontend – Frontend
 
-Angular 19 + Tailwind CSS frontend for the sentiment-shop reference
-application. Sibling project to the Spring Boot backend
-(`thesis-sentiment-shop`).
+Angular 19 + Tailwind CSS frontend for the thesis reference application.
+Displays a product catalog with customer reviews and a sentiment overview.
+All API communication goes to the Spring Boot backend.
 
-## Folder structure
+For project-level context, prerequisites, and installation instructions,
+see the parent `README.md` one level up.
+
+---
+
+## Stack
+
+| Technology | Version |
+|---|---|
+| Angular | 19 |
+| TypeScript | 5.6 (strict mode) |
+| Tailwind CSS | 3.4 |
+
+The application uses standalone components, Angular's new control-flow syntax,
+signals, and `inject()` throughout.
+
+---
+
+## Module structure
 
 ```
-src/app/
-|–– app.component.ts          <- shell with header navigation
-|–– app.config.ts             <- root providers (router, HTTP client)
-|–– app.routes.ts             <- lazy-loaded route definitions
-|–– core/
-|   |–– api/                  <- HTTP services (one per backend resource)
-|   └–– models/               <- TypeScript types matching backend DTOs
-|–– features/
-|   |–– products/             <- product list + detail pages
-|   └–– sentiment/            <- aggregate overview page
-└–– shared/
-    |–– sentiment-badge.component.ts   <- reusable color-coded badge
-    └–– star-rating.component.ts       <- reusable interactive component
+|–– src/
+|    └–– app/
+|         |–– core/
+|         |    |–– api/                         <– One HTTP service per backend resource
+|         |    └–– models/                      <– Typescript types matching backend DTOs
+|         |–– features/
+|         |    |–– products/                    <– Product list and detail pages
+|         |    └–– sentiment/                   <– Aggregate overview page
+|         |–– shared/
+|         |    |–– sentiment-badge.component.ts <– Color-coded badge: OSITIVE (green), NEUTRAL (grey), NEGATIVE (red), 
+|         |    |                                   null → animated "Pending" (amber)
+|         |    └–– star-rating.component.ts     <– Read-only star display
+|         |–– app.component.ts                  <– Shell with header navigation
+|         |–– app.config.ts                     <– Root providers (router, HTTP client)
+|         └–– app.routes.ts                     <– Lazy-loaded route definitions  
+└–– proxy.conf.json                             <– Dev-server proxy: /api –> https://localhost:8080
 ```
 
-## Prerequisites
-
-- **Node.js 20.x or 22.x** (Angular 19 requirement)
-- The backend running on `http://localhost:8080` for the dev proxy to work
-
-## Running in development
+---
+## Running locally
 
 ```bash
 npm start
@@ -36,7 +53,8 @@ npm start
 This runs `ng serve` on `http://localhost:4200/` with hot reload. The
 dev proxy (`proxy.conf.json`) forwards `/api/*` and `/actuator/*` to the
 Spring Boot backend on `:8080`, so frontend code can call relative URLs
-like `/api/products` and they reach the backend transparently.
+like `/api/products` and they reach the backend transparently. The 
+Spring Boot backend must be running before submitting reviews.
 
 ## Running tests
 
@@ -44,16 +62,11 @@ like `/api/products` and they reach the backend transparently.
 npm test
 ```
 
-## What is not here
+## Async variant behaviour
 
-- **Authentication UI**: backend uses a hardcoded test user, frontend
-  doesn't have a login flow, since out-of-scope in the thesis
-- **Pagination controls**: services accept `page`/`size` params but the
-  list components currently fetch only the first page. Sufficient for
-  the thesis dataset size.
-
-## Use of AI assistance
-
-Parts of this source code were designed with the aid of AI and subsequently reviewed and revised by
-the author. The code fragments created in this way are clearly marked inline at the point where they
-appear. Where no such marking is present, the code is the author’s own original work. 
+The sentiment badge handles the case where `sentiment` is `null` by rendering
+an animated "Pending" state. Under async variants (E-Async, S-Async, X-Async)
+there is a brief window between review submission and classification callback
+during which submitted reviews appear as pending. Under sustained load this
+window widens – this is the intended observable behaviour for the thesis
+performance analysis and requires no frontend change between variants.

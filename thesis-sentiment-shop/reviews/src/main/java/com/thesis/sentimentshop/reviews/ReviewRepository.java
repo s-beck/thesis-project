@@ -10,6 +10,8 @@ import org.springframework.data.repository.query.Param;
 import java.time.Instant;
 import java.util.List;
 
+// AI-assisted code: Created during baseline app init. Generated with Claude (Anthropic) and reviewed by the author.
+
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     Page<Review> findByProductId(Long productId, Pageable pageable);
