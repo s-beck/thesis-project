@@ -15,7 +15,7 @@ ASYNC_VARIANTS = {"e-async", "s-async", "x-async"}
 JTL_PATTERN = re.compile(
     r"^(?P<variant>e-sync|e-async|s-sync|s-async|x-sync|x-async)_"
     r"(?P<profile>baseline|moderate|high)_"
-    r"(?P<run_id>[A-Za-z0-9]+)\.jtl$"
+    r"(?P<run_id>[A-Za-z0-9_]+)\.jtl$"
 )
 
 @dataclass
@@ -102,7 +102,7 @@ def summarise_run(jtl_path: Path, jsonl_dir: Path) -> Optional[RunSummary]:
     variant = m.group("variant")
     profile = m.group("profile")
     run_id = m.group("run_id")
-    is_warmup = run_id == "warmup"
+    is_warmup = run_id.endswith("warmup")
 
     jtl = parse_jtl(jtl_path)
     if jtl.empty:

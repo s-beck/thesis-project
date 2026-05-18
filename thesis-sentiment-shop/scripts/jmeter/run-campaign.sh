@@ -8,6 +8,7 @@ PROJECT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 RESULTS_DIR="$SCRIPT_DIR/results"
 CORPUS_FILE="$SCRIPT_DIR/corpus.csv"
 JMETER_LOG_DIR="$SCRIPT_DIR/jmeter-logs"
+COMPOSE_FILE="$PROJECT_DIR/docker-compose.yml"
 
 mkdir -p "$RESULTS_DIR" "$JMETER_LOG_DIR"
 
@@ -16,14 +17,19 @@ WARMUP_RUN_ID="warmup"
 MEASUREMENT_RUNS=5 # measurement runs per cell
 STARTUP_TIMEOUT_S=90 # max wait for /actuator/health=UP
 SHUTDOWN_GRACE_S=10 # SIGTERM then wait, then SIGKILL
-TAIL_WAIT_S=35 # async results + sweeper drain
 COOLDOWN_S=60 # between consecutive runs
+TAIL_WAIT_SYNC_S=35 # sync variants: no broker backlog to drain
+TAIL_WAIT_ASYNC_S=150 # async variants: drain broker + sweeper
+ASYNC_HIGH_THROUGHPUT_PER_MIN=3000
+COMPOSE_HEALTH_TIMEOUT_S=120 # max wait for required containers to be healthy
+CONSUMER_CONNECT_WAIT_S=5 # let the s-async consumer connect after the app
 
 HEALTH_URL="http://localhost:8080/actuator/health"
 SUT_PORT=8080
 
 # --- Variant & profile matrix ---
 ALL_VARIANTS=(e-sync e-async s-sync s-async x-sync x-async)
+ASYNC_VARIANTS=(e-async s-async x-async)
 ALL_PROFILES=(baseline moderate high)
 
 # High-profile thread count per variant
@@ -33,8 +39,72 @@ declare -A HIGH_THREADS=(
     [x-sync]=10  [x-async]=10
 )
 
+declare -A VARIANT_SERVICES=(
+    [e-sync]="mariadb"
+    [e-async]="mariadb"
+    [s-sync]="mariadb inference-service"
+    [s-async]="mariadb inference-service rabbitmq"
+    [x-sync]="mariadb"
+    [x-async]="mariadb rabbitmq"
+)
+
 # --- Logging ---
 log() { printf '[%s] %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"; }
+
+is_async() {
+    local v="$1"
+    for a in "${ASYNC_VARIANTS[@]}"; do
+        [[ "$v" == "$a" ]] && return 0
+    done
+    return 1
+}
+
+# --- Per-run infrastructure reset ---
+reset_state() {
+    local variant="$1"
+    local services="${VARIANT_SERVICES[$variant]}"
+
+    log "Resetting infrastructure for $variant (services: $services)"
+
+    # Tear down containers and volumes
+    docker compose -f "$COMPOSE_FILE" down -v --remove-orphans >/dev/null 2>&1 || true
+
+    # Bring up only the services this variant depends on
+    # shellcheck disable=SC2086
+    docker compose -f "$COMPOSE_FILE" up -d $services >/dev/null 2>&1
+
+    # Wait until each started service reports healthy
+    local elapsed=0
+    while (( elapsed < COMPOSE_HEALTH_TIMEOUT_S )); do
+        local not_healthy=0
+        for svc in $services; do
+            local state
+            state=$(docker compose -f "$COMPOSE_FILE" ps --format '{{.Service}} {{.Health}}' \
+                    2>/dev/null | awk -v s="$svc" '$1==s {print $2}')
+            if [[ "$state" != "healthy" ]]; then
+                if [[ -z "$state" ]]; then
+                    # No healthcheck defined: accept if the container is running.
+                    local running
+                    running=$(docker compose -f "$COMPOSE_FILE" ps --status running \
+                              --format '{{.Service}}' 2>/dev/null | grep -cx "$svc" || true)
+                    [[ "$running" -eq 1 ]] || not_healthy=1
+                else
+                    not_healthy=1
+                fi
+            fi
+        done
+        if [[ "$not_healthy" -eq 0 ]]; then
+            log "Infrastructure healthy after ${elapsed}s"
+            return 0
+        fi
+        sleep 3
+        elapsed=$((elapsed + 3))
+    done
+
+    log "Infrastructure for $variant not healthy within ${COMPOSE_HEALTH_TIMEOUT_S}s"
+    docker compose -f "$COMPOSE_FILE" ps || true
+    return 1
+}
 
 # --- Spring Boot JVM lifecycle ---
 SUT_PID=""
@@ -130,6 +200,12 @@ run_jmeter() {
     # High-profile per-variant thread count
     if [[ "$profile" == "high" ]]; then
         jmeter_args+=(-Jthreads="${HIGH_THREADS[$variant]}")
+        if is_async "$variant"; then
+            jmeter_args+=(-JasyncThroughput="$ASYNC_HIGH_THROUGHPUT_PER_MIN")
+            log "Async high pacing: ${ASYNC_HIGH_THROUGHPUT_PER_MIN} submissions/min"
+        else
+            jmeter_args+=(-JasyncThroughput=0)
+        fi
     fi
 
     log "JMeter: profile=$profile variant=$variant run.id=$run_id"
@@ -141,11 +217,24 @@ run_cell() {
     local profile="$2"
     local run_id="$3"
 
+    # Fresh DB + broker for every run, with only this variant's services up.
+    reset_state "$variant" || return 1
     start_sut "$variant" "$run_id" || return 1
+
+    if [[ "$variant" == "s-async" ]]; then
+        log "Starting inference-service-consumer (broker topology now exists)"
+        docker compose -f "$COMPOSE_FILE" up -d inference-service-consumer >/dev/null 2>&1
+        sleep "$CONSUMER_CONNECT_WAIT_S"
+    fi
+
     run_jmeter "$profile" "$variant" "$run_id" || true
 
-    log "Tail-wait ${TAIL_WAIT_S}s for async drain + sweeper"
-    sleep "$TAIL_WAIT_S"
+    local tail_wait="$TAIL_WAIT_SYNC_S"
+    if is_async "$variant"; then
+        tail_wait="$TAIL_WAIT_ASYNC_S"
+    fi
+    log "Tail-wait ${tail_wait}s for async drain + sweeper"
+    sleep "$tail_wait"
 
     stop_sut
 
@@ -168,11 +257,11 @@ main() {
             log "=== Cell: $variant x $profile ==="
 
             log "--- Warmup run (discarded) ---"
-            run_cell "$variant" "$profile" "$WARMUP_RUN_ID"
+            run_cell "$variant" "$profile" "${profile}_${WARMUP_RUN_ID}"
 
             for ((i = 1; i <= MEASUREMENT_RUNS; i++)); do
                 log "--- Measurement run $i/$MEASUREMENT_RUNS ---"
-                run_cell "$variant" "$profile" "m${i}"
+                run_cell "$variant" "$profile" "${profile}_m${i}"
             done
         done
     done
