@@ -20,6 +20,7 @@ import java.time.Instant;
 @ComponentScan(basePackages = "com.thesis.sentimentshop")
 @EntityScan(basePackages = "com.thesis.sentimentshop")
 @EnableJpaRepositories(basePackages = "com.thesis.sentimentshop")
+// Author Edit: enabled scheduling for the message queue
 @EnableScheduling
 public class SentimentShopApplication {
     private static final Instant START_INSTANT = Instant.now();
@@ -27,6 +28,8 @@ public class SentimentShopApplication {
     public static void main(String[] args) {
         SpringApplication.run(SentimentShopApplication.class, args);
     }
+
+    // Author Edit: added the event listener for the fault injection measurement log
     @Component
     static class StartupEmitter {
         @EventListener

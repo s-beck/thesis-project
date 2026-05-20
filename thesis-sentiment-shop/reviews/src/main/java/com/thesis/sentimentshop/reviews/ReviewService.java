@@ -28,6 +28,7 @@ import java.util.Optional;
 // AI-assisted code: Created during baseline app init. Generated with Claude (Anthropic) and reviewed by the author.
 
 @Service
+// Author Edit: now implementing SentimentSink for the async variants
 public class ReviewService implements SentimentResultSink {
 
     private static final Logger log = LoggerFactory.getLogger(ReviewService.class);
@@ -37,6 +38,7 @@ public class ReviewService implements SentimentResultSink {
     private final Optional<SentimentClassifier> syncClassifier;
     private final Optional<AsyncSentimentClassifier> asyncClassifier;
 
+    // Author Edit: refactored the constructor to support both sync and async classifiers
     public ReviewService(ReviewRepository reviews,
                          ProductRepository products,
                          Optional<SentimentClassifier> syncClassifier,
@@ -55,6 +57,7 @@ public class ReviewService implements SentimentResultSink {
         this.asyncClassifier = asyncClassifier;
     }
 
+    // Author Edit: refactored method to support both sync and async
     @Transactional
     public Review submit(Long productId, String author, String text, int rating) {
         Product product = products.findById(productId)
@@ -129,6 +132,7 @@ public class ReviewService implements SentimentResultSink {
         Review review = reviews.findById(reviewId)
                 .orElseThrow(() -> new NoSuchElementException(
                         "review not found: " + reviewId));
+        // Author Edit: added the return on condition
         if (isTerminal(review)) {
             log.info("Ignoring late result for review {} — already in terminal state ({})",
                     reviewId, terminalLabel(review));
@@ -144,12 +148,14 @@ public class ReviewService implements SentimentResultSink {
                 MeasurementEvent.Path.ASYNC_CALLBACK);
     }
 
+    // Author Edit: Added method for proper exception handling in async variants
     @Override
     @Transactional
     public void onFailure(long reviewId, FailureMode failureMode) {
         Review review = reviews.findById(reviewId)
                 .orElseThrow(() -> new NoSuchElementException(
                         "review not found: " + reviewId));
+        // Author Edit: Added the return on condition
         if (isTerminal(review)) {
             log.info("Ignoring late failure ({}) for review {} — already in terminal state ({})",
                     failureMode, reviewId, terminalLabel(review));
@@ -161,6 +167,7 @@ public class ReviewService implements SentimentResultSink {
                 MeasurementEvent.Origin.CALLBACK);
     }
 
+    // Author Edit: added the isTerminal() and terminalLabel() methods for the return on condition called in onResult() and onFailure()
     private static boolean isTerminal(Review review) {
         return review.getSentiment() != null || review.getClassificationFailureMode() != null;
     }

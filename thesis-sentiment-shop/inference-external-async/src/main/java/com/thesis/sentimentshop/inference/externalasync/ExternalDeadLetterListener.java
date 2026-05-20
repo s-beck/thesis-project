@@ -10,6 +10,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 
 import java.util.function.Supplier;
 
+// Author Edit: created the listener based on the existing self-hosted DeadLetterListener which was created by Claude (Anthropic).
 public final class ExternalDeadLetterListener {
 
     private static final Logger log = LoggerFactory.getLogger(ExternalDeadLetterListener.class);

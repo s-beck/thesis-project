@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class PendingReviewSweeperConfiguration {
 
+    // Author Edit: added the conditional property to enable the sweeper for S-Async and X-Async only
     @Bean
     @ConditionalOnProperty(
             name = "sentiment.async.sweeper.enabled",

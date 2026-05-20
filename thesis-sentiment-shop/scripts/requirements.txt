@@ -1,3 +1,5 @@
+# AI-assisted code: Generated with Claude (Anthropic) and reviewed/modified by the author.
+
 # Pinned for reproducibility purposes. The export script is run once;
 # A future re-run should produce a byte-identical ONNX artefact.
 #

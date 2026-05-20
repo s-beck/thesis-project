@@ -42,6 +42,7 @@ public class HuggingFaceSentimentClient implements SentimentClassifier {
                 .build();
     }
 
+    // // AI-assisted code: Method generated with Claude (Anthropic) and reviewed/modified by the author.
     @Override
     public SentimentResult classify(String text) {
         if (text == null) {
@@ -51,6 +52,7 @@ public class HuggingFaceSentimentClient implements SentimentClassifier {
         Instant started = Instant.now();
         HuggingFaceClassifyResponse[][] body;
 
+        // Author Edit: refactored by catching the different http error states
         try {
             body = restClient.post()
                     .contentType(MediaType.APPLICATION_JSON)
@@ -58,9 +60,9 @@ public class HuggingFaceSentimentClient implements SentimentClassifier {
                     .retrieve()
                     .body(HuggingFaceClassifyResponse[][].class);
         } catch (HttpServerErrorException ex) {
-            throw mapServerError(ex);
+            throw mapServerError(ex); // Author Edit: added method for http error handling
         } catch (HttpClientErrorException ex) {
-            throw mapClientError(ex);
+            throw mapClientError(ex); // Author Edit: added method for http error handling
         } catch (RestClientResponseException ex) {
             throw new SentimentClassificationException(
                     FailureMode.UNKNOWN,
@@ -68,7 +70,7 @@ public class HuggingFaceSentimentClient implements SentimentClassifier {
                             + " from HuggingFace Inference API",
                     ex);
         } catch (ResourceAccessException ex) {
-            throw mapTransportFailure(ex);
+            throw mapTransportFailure(ex); // Author Edit: added method for error handling
         } catch (RestClientException ex) {
             throw new SentimentClassificationException(
                     FailureMode.UNKNOWN,
@@ -77,9 +79,8 @@ public class HuggingFaceSentimentClient implements SentimentClassifier {
         }
 
         if (body == null || body.length == 0 || body[0] == null || body[0].length == 0) {
-            // 200 with structurally-malformed body — decision 40: MODEL_ERROR.
-            // The model "succeeded" at the HTTP level but produced nothing
-            // we can interpret as a classification.
+            // 200 with structurally-malformed body: MODEL_ERROR.
+            // The model "succeeded" at the HTTP level but produced nothing we can interpret as a classification.
             throw new SentimentClassificationException(
                     FailureMode.MODEL_ERROR,
                     "HuggingFace returned 200 with empty or malformed body");
@@ -97,6 +98,7 @@ public class HuggingFaceSentimentClient implements SentimentClassifier {
         );
     }
 
+    // AI-assisted code: Method generated with Claude (Anthropic) and reviewed/modified by the author.
     private static HuggingFaceClassifyResponse topScoring(HuggingFaceClassifyResponse[] entries) {
         HuggingFaceClassifyResponse best = entries[0];
         for (int i = 1; i < entries.length; i++) {
@@ -112,7 +114,7 @@ public class HuggingFaceSentimentClient implements SentimentClassifier {
         }
         return best;
     }
-
+    // Author Edit: added method for https error handling
     private static SentimentClassificationException mapServerError(HttpServerErrorException ex) {
         int status = ex.getStatusCode().value();
         String body = safeBody(ex);
@@ -130,6 +132,7 @@ public class HuggingFaceSentimentClient implements SentimentClassifier {
                 ex);
     }
 
+    // Author Edit: added method for http error handling
     private static SentimentClassificationException mapClientError(HttpClientErrorException ex) {
         int status = ex.getStatusCode().value();
         String body = safeBody(ex);
@@ -148,6 +151,7 @@ public class HuggingFaceSentimentClient implements SentimentClassifier {
                 ex);
     }
 
+    // Author Edit: added method for error handling
     private static SentimentClassificationException mapTransportFailure(ResourceAccessException ex) {
         Throwable cause = ex.getCause();
         if (cause instanceof SocketTimeoutException) {
@@ -170,6 +174,7 @@ public class HuggingFaceSentimentClient implements SentimentClassifier {
                 ex);
     }
 
+    // Author Edit: excluded this part in own method to reuse in both server and client error handling
     private static String safeBody(RestClientResponseException ex) {
         try {
             return ex.getResponseBodyAsString();

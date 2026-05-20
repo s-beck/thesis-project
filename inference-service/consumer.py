@@ -120,6 +120,7 @@ def _classify_and_publish(
             review_id, delivery_tag,
         )
         connection.add_callback_threadsafe(
+            # Author Edit: replaced with reject method
             lambda: _safe_reject(channel, delivery_tag, requeue=True)
         )
         return
@@ -156,6 +157,7 @@ def _safe_nack(channel: BlockingChannel, delivery_tag: int, requeue: bool) -> No
     except Exception:
         logger.exception("Failed to nack message (tag=%d, requeue=%s)", delivery_tag, requeue)
 
+# Author Edit: implemented reject method to fix the PendingReviewSweeper
 def _safe_reject(channel: BlockingChannel, delivery_tag: int, requeue: bool) -> None:
     try:
         channel.basic_reject(delivery_tag=delivery_tag, requeue=requeue)

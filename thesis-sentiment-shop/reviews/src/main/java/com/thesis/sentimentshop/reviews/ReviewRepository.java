@@ -36,6 +36,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     long countBySentiment(Sentiment sentiment);
 
+    // Author Edit: added the findStalePending query
     // Reviews still in pending state
     @Query("""
             SELECT r FROM Review r

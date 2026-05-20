@@ -1,3 +1,4 @@
+# AI-assisted code: Generated with Claude (Anthropic) and reviewed/modified by the author.
 import logging
 import os
 import sys

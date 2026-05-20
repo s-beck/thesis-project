@@ -44,6 +44,7 @@ public class Review extends BaseEntity {
     @Column(name = "classified_at")
     private Instant classifiedAt;
 
+    // Author Edit: Added the another column to track the failure mode
     @Enumerated(EnumType.STRING)
     @Column(name = "classification_failure_mode", length = 20)
     private FailureMode classificationFailureMode;
@@ -63,9 +64,11 @@ public class Review extends BaseEntity {
         this.sentiment = sentiment;
         this.sentimentConfidence = confidence;
         this.classifiedAt = Instant.now();
+        // Author Edit: added to be able to save the failure mode in future
         this.classificationFailureMode = null;
     }
 
+    // Author Edit: added the method to be able to save the failure mode
     public void recordFailure(FailureMode failureMode) {
         this.sentiment = null;
         this.sentimentConfidence = null;

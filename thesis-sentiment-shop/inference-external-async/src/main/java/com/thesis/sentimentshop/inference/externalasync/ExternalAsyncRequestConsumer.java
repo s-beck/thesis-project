@@ -40,6 +40,7 @@ public final class ExternalAsyncRequestConsumer {
         long startMs = System.currentTimeMillis();
 
         SentimentResult result;
+        // AI-assisted code: Refactored method for error handling with the help of Claude (Anthropic), result has been reviewed by the author.
         try {
             result = classifier.classify(payload.text());
         } catch (SentimentClassificationException ex) {
@@ -67,7 +68,7 @@ public final class ExternalAsyncRequestConsumer {
 
         rabbitTemplate.convertAndSend(exchange, resultsRoutingKey, resultMessage);
     }
-
+    // AI-assisted code: method generated with Claude (Anthropic) and reviewed by the author.
     private void handleClassificationFailure(long reviewId,
                                              Message rawMessage,
                                              SentimentClassificationException ex) {
@@ -89,6 +90,7 @@ public final class ExternalAsyncRequestConsumer {
         throw ex;
     }
 
+    // AI-assisted code: method generated with Claude (Anthropic) and reviewed by the author.
     private static void stampFailureMode(Message rawMessage, FailureMode mode) {
         if (rawMessage == null) {
             return;

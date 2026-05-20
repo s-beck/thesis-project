@@ -27,17 +27,19 @@ public class PendingReviewSweeper {
 
     @Scheduled(fixedDelayString = "${sentiment.async.sweeper-interval-ms:5000}")
     @Transactional
+    // Author Edit: refactored the sweep method with a try-catch block to make the PendingReviewSweeper to work as intended
     public void sweep() {
         log.debug("Sweeper tick: pendingTimeoutMs={}", pendingTimeoutMs);
         try {
             Instant now = Instant.now();
             Instant cutoff = now.minus(Duration.ofMillis(pendingTimeoutMs));
-            List<Review> stale = reviews.findStalePending(cutoff);
+            List<Review> stale = reviews.findStalePending(cutoff); // Author Edit: added the findStalePending() method
             log.debug("Sweeper found {} stale review(s)", stale.size());
             if (stale.isEmpty()) {
                 return;
             }
             for (Review review : stale) {
+                // Author Edit: added the measurement logs for the fault injection
                 long pendingForMs = Duration.between(review.getCreatedAt(), now).toMillis();
                 review.recordFailure(FailureMode.TIMEOUT);
                 MeasurementLog.sweeperSwept(review.getId(), pendingForMs, now);

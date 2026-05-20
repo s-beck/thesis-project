@@ -17,6 +17,7 @@ public final class DeadLetterListener {
 
     private static final Logger log = LoggerFactory.getLogger(DeadLetterListener.class);
 
+    // Author Edit: added the two constants
     private static final String REASON_DELIVERY_LIMIT = "delivery_limit";
     private static final String REASON_REJECTED = "rejected";
 
@@ -27,6 +28,7 @@ public final class DeadLetterListener {
         this.sinkSupplier = sinkSupplier;
     }
 
+    // Author Edit: refactored the onDeadLetter() method and implemented the readFailureModeFromXDeath()
     @RabbitListener(queues = "${sentiment.async.requests-dlq:sentiment.requests.dlq}",
             containerFactory = "sentimentRabbitListenerContainerFactory")
     public void onDeadLetter(ClassifyMessage payload, Message rawMessage) {

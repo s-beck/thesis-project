@@ -21,7 +21,7 @@ RUN python -c "from transformers import AutoModelForSequenceClassification, Auto
                name='${SENTIMENT_MODEL_NAME}'; \
                AutoTokenizer.from_pretrained(name); \
                AutoModelForSequenceClassification.from_pretrained(name)"
-
+# Author Edit: added consumer.py for the S-Async variant
 COPY classifier.py app.py consumer.py ./
 
 EXPOSE 8000

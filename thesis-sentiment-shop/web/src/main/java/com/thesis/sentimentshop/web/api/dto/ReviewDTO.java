@@ -15,7 +15,7 @@ public record ReviewDTO(Long id,
                         int rating,
                         Sentiment sentiment,
                         Double sentimentConfidence,
-                        FailureMode classificationFailureMode,
+                        FailureMode classificationFailureMode, // Author Edit: added to be able to save the failure mode
                         Instant createdAt,
                         Instant classifiedAt) {
 
@@ -28,7 +28,7 @@ public record ReviewDTO(Long id,
                 review.getRating(),
                 review.getSentiment(),
                 review.getSentimentConfidence(),
-                review.getClassificationFailureMode(),
+                review.getClassificationFailureMode(), // Author Edit: added to be able to save the failure mode
                 review.getCreatedAt(),
                 review.getClassifiedAt()
         );

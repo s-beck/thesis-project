@@ -2,6 +2,8 @@ package com.thesis.sentimentshop.inference.embedded;
 
 import java.util.regex.Pattern;
 
+// AI-assisted code: Generated with Claude (Anthropic) and reviewed/modified by the author.
+
 /**
  * Replicates the {@code preprocess()} step published on the
  * {@code cardiffnlp/twitter-roberta-base-sentiment-latest} model card:
@@ -21,7 +23,6 @@ import java.util.regex.Pattern;
  * <p>Stateless, thread-safe.
  */
 
-// AI-assisted code: Generated with Claude (Anthropic) and reviewed/modified by the author.
 public class ReviewTextPreprocessor {
     private static final Pattern MENTION = Pattern.compile("@\\S+");
 

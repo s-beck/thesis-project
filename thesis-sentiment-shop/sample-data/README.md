@@ -28,7 +28,7 @@ set of products and reviews loaded into the database at startup so
 the UI is populated. These reviews represent the state of the application *before* the experiments — populated by
 an unspecified prior classifier and treated as ground truth for
 display only.
-2. **Experimental input pool (`reviews_experimental.csv`)** is a much larger corpus, *not loaded into the
+2. **Experimental input pool (`corpus.csv`)** is a much larger corpus, *not loaded into the
 database*, read directly by the experiment harness and submitted
 via the REST API to the variant under measurement. This way the
 variants only ever classify newly submitted reviews, never the
